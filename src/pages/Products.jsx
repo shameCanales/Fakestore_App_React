@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../util/http";
+import ProductCard from "../components/ProductCard";
 
-export default function Home() {
+export default function Products() {
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["products"],
     queryFn: ({ signal }) => fetchProducts({ signal }),
@@ -20,25 +21,25 @@ export default function Home() {
 
   if (data) {
     content = (
-      <ul>
+      <ul className="grid grid-cols-3 gap-5 mt-5">
         {data.map((product) => (
-          <li key={product.id}>
-            <p>{product.title}</p>
-            {product.images?.[0] && (
-              <img src={product.images[0]} alt={product.title} />
-            )}
-            <p>price: {product.price}</p>
-            <p>description: {product.description}</p>
-          </li>
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            imgSrc={product.images[0]}
+            title={product.title}
+            description={product.description}
+            price={product.price}
+          />
         ))}
       </ul>
     );
   }
   return (
-    <>
-      <h1>FakeStore Items:</h1>
+    <div className="bg-[#DCDCD]">
+      <h1 className="poppins-bold text-5xl mt-15">Products</h1>
 
       <main>{content}</main>
-    </>
+    </div>
   );
 }

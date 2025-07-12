@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import RootLayout from "./pages/Root";
-import Home from "./pages/Home";
+import Products from "./pages/Products";
 import Categories from "./pages/Categories";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./util/http";
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Products />,
       },
       {
         path: "categories",

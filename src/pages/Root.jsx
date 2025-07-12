@@ -5,7 +5,7 @@ function RootLayout() {
   return (
     <>
       <MainNavigation />
-      <main>
+      <main className="px-10 ">
         <Outlet />
       </main>
     </>
