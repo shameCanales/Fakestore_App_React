@@ -1,7 +1,48 @@
+import fakestorelogo from "../assets/fkstorelogo.png";
+import { NavLink, useLocation } from "react-router";
+import LinkText from "../UI/LinkText";
+import cartIcon from "../assets/grocery-store.png";
+
 export default function MainNavigation() {
+  const location = useLocation();
+
+  const routeNameMap = {
+    "/": "home",
+    "/categories": "categories",
+  };
+
+  const currentPage = routeNameMap[location.pathname] || "ilam";
+
   return (
-    <>
-      <h1>This is a MainNavigation</h1>
-    </>
+    <header className="bg-stone-900 flex justify-between items-center p-4">
+      <img
+        src={fakestorelogo}
+        alt="store logo"
+        className="w-[119px] h-[40px]"
+      />
+
+      <nav className="flex items-center gap-2">
+        <ul className="flex items-center border-r-stone-50 border-r-2">
+          <li>
+            <NavLink to="/">
+              <LinkText name="Products" active={currentPage === "home"} />
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="categories">
+              <LinkText
+                name="Categories"
+                active={currentPage === "categories"}
+              />
+            </NavLink>
+          </li>
+        </ul>
+
+        <button className="flex items-center">
+          <img src={cartIcon} alt="Cart icon" className="w-[20px] mr-2 ml-10" />
+          <LinkText name="Cart" />
+        </button>
+      </nav>
+    </header>
   );
 }
