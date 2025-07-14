@@ -3,6 +3,7 @@ import "./App.css";
 import RootLayout from "./pages/Root";
 import Products from "./pages/Products";
 import Categories from "./pages/Categories";
+import NotFoundPage from "./pages/NotFoundPage";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./util/http";
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "categories",
         element: <Categories />,
+      },
+      {
+        path: "*", //any URL that isn't explicitly defined in my createBrowserRouter setup
+        element: <NotFoundPage />,
       },
     ],
   },
