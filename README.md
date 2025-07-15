@@ -2,10 +2,6 @@
 
 A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS, Redux Toolkit, Tanstack Query, and React Router, using the public [FakeStore API](https://fakestoreapi.com) for mock data.
 
---
-
-<!-- ## Live Demo -->
-
 ## Tech Stack
 
 | Tool                        | Description                            |
@@ -17,10 +13,8 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 | React Router                | Cliend-side Routing                    |
 | FakeStore API               | Mock backend for products, users, etc. |
 
-## Planned Features
+## To be added Features
 
-- Product Listing 
-- detail Pages
 - Filter by categories
 - Shopping cart system
 - Quantity control & remove items
@@ -34,5 +28,6 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 
 1. Product Listing and detail Pages
 2. Image Carousel (selectable image)
+3. Category Page
 
 ## Folder Structure (Modular)

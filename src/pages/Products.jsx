@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../util/http";
 import ProductCard from "../components/ProductCard";
+import Heading from "../UI/Heading";
 
 export default function Products() {
   const { data, isPending, isError, error } = useQuery({
@@ -37,7 +38,7 @@ export default function Products() {
   }
   return (
     <div className="bg-[#DCDCD]">
-      <h1 className="poppins-bold text-5xl mt-15">Products</h1>
+      <Heading text="Products" />
 
       <main>{content}</main>
     </div>
