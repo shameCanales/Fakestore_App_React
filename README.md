@@ -19,16 +19,20 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 
 ## Planned Features
 
-1. Product Listing and detail Pages
-2. Filter by categories
-3. Shopping cart system
-4. Quantity control & remove items
-5. Simulated user Login (FakeStore API)
-6. protected profile router
-7. Persistent cart using 'localStorage'
-8. Fully Responsive layout
-9. Dark Mode
+- Product Listing 
+- detail Pages
+- Filter by categories
+- Shopping cart system
+- Quantity control & remove items
+- Simulated user Login (FakeStore API)
+- protected profile router
+- Persistent cart using 'localStorage'
+- Fully Responsive layout
+- Dark Mode
 
 ## Implemented Features
+
+1. Product Listing and detail Pages
+2. Image Carousel (selectable image)
 
 ## Folder Structure (Modular)

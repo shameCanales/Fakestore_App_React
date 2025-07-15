@@ -4,6 +4,7 @@ import { fetchProductById } from "../util/http";
 import { useEffect } from "react";
 import { Link } from "react-router";
 import arrow from "../assets/arrow.png";
+import ImageCarousel from "../components/ImageCarousel";
 
 export default function ProductDetail() {
   const params = useParams();
@@ -36,12 +37,13 @@ export default function ProductDetail() {
         <p className="poppins-bold text-3xl mt-4">{price} Pesos</p>
         <p className="montserrat mt-2 text-lg">{description}</p>
         <p className="poppins-medium my-4">
-          Category: <span className="px-4 py-2 bg-stone-900 text-stone-50 rounded-4xl ml-2">{category.name}</span>
+          Category:{" "}
+          <span className="px-4 py-2 bg-stone-900 text-stone-50 rounded-4xl ml-2">
+            {category.name}
+          </span>
         </p>
 
-        {images.map((img) => (
-          <img key={img} src={img} />
-        ))}
+        <ImageCarousel images={images} />
       </div>
     );
   }
