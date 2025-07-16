@@ -1,10 +1,10 @@
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductById } from "../util/http";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Link } from "react-router";
 import arrow from "../assets/arrow.png";
-import ImageCarousel from "../components/ImageCarousel";
+import ProductDetailsContent from "../components/ProductDetailsContent";
 
 export default function ProductDetail() {
   const params = useParams();
@@ -14,9 +14,9 @@ export default function ProductDetail() {
     queryFn: ({ signal }) => fetchProductById({ signal, id: params.id }),
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
   let content = <p>Refresh the page to view Details</p>;
 
@@ -29,24 +29,9 @@ export default function ProductDetail() {
   }
 
   if (data) {
-    const { id, title, slug, price, description, category, images } = data;
-
-    content = (
-      <div className="mt-10">
-        <p className="montserrat-medium text-xl">{title}</p>
-        <p className="poppins-bold text-3xl mt-4">{price} Pesos</p>
-        <p className="montserrat mt-2 text-lg">{description}</p>
-        <p className="poppins-medium my-4">
-          Category:{" "}
-          <span className="px-4 py-2 bg-stone-900 text-stone-50 rounded-4xl ml-2">
-            {category.name}
-          </span>
-        </p>
-
-        <ImageCarousel images={images} />
-      </div>
-    );
+    content = <ProductDetailsContent data={data} />;
   }
+
   return (
     <div>
       <div className="flex justify-between mt-15">

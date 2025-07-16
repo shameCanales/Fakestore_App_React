@@ -9,6 +9,7 @@ export default function MainNavigation() {
   const routeNameMap = {
     "/": "home",
     "/categories": "categories",
+    "/cart": "cart",
   };
 
   const currentPage = routeNameMap[location.pathname] || "ilam";
@@ -40,7 +41,9 @@ export default function MainNavigation() {
 
         <button className="flex items-center">
           <img src={cartIcon} alt="Cart icon" className="w-[20px] mr-2 ml-10" />
-          <LinkText name="Cart" />
+          <NavLink to="cart">
+            <LinkText name="Cart" active={currentPage === "cart"} />
+          </NavLink>
         </button>
       </nav>
     </header>

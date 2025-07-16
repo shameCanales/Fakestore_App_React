@@ -48,6 +48,7 @@ export default function Categories() {
       <div className="grid grid-cols-8 gap-2 mt-15">
         {data.map((cat) => (
           <CategoryItem
+            key={cat.id}
             id={cat.id}
             name={cat.name}
             slug={cat.slug}

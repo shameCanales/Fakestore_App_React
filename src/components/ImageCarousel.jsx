@@ -1,4 +1,3 @@
-import "keen-slider/keen-slider.min.css";
 import { useState } from "react";
 
 export default function ImageCarousel({ images }) {
@@ -10,18 +9,26 @@ export default function ImageCarousel({ images }) {
 
   return (
     <div className="relative">
-      <div className="border-2 border-red-600">
+      <div>
         <img src={images[selectedImage]} alt="" />
       </div>
       <div className="flex gap-2 mx-4 absolute bottom-4">
-        {images.map((img, index) => (
-          <img
-            className="w-[150px] border-2 border-stone-50"
-            key={img}
-            src={img}
-            onClick={() => handleSelectImage(index)}
-          />
-        ))}
+        {images.map((img, index) => {
+          let imageStyle = "w-[100px]  ";
+
+          if (selectedImage === index) {
+            imageStyle += " border-3 border-stone-50";
+          }
+
+          return (
+            <img
+              className={imageStyle}
+              key={index}
+              src={img}
+              onClick={() => handleSelectImage(index)}
+            />
+          );
+        })}
       </div>
     </div>
   );

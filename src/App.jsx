@@ -6,6 +6,7 @@ import Categories from "./pages/Categories";
 import NotFoundPage from "./pages/NotFoundPage";
 import CategoryProducts from "./pages/CategoryProducts";
 import ProductDetailPage from "./pages/ProductDetail";
+import CartPage from "./pages/CartPage";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./util/http";
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             element: <CategoryProducts />,
           },
         ],
+      },
+      {
+        path: "cart",
+        element: <CartPage />,
       },
       {
         path: "*", //any URL that isn't explicitly defined in my createBrowserRouter setup
