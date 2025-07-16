@@ -1,8 +1,11 @@
 import ImageCarousel from "./ImageCarousel";
 import { useState } from "react";
 import Button from "../UI/button";
+import { cartActions } from "../store/cart-slice";
+import { useDispatch } from "react-redux";
 
 export default function ProductDetailsContent({ data }) {
+  const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const { id, title, slug, price, description, category, images } = data;
 
@@ -18,7 +21,7 @@ export default function ProductDetailsContent({ data }) {
 
   function handleAddToCart() {
     console.log(`added itemID ${id} with quantity of ${quantity}`);
-
+    dispatch(cartActions.addItemToCart({ id, quantity }));
     setQuantity(() => 1);
   }
 

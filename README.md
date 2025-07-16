@@ -1,6 +1,6 @@
 # FakeStore React App
 
-A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS, Redux Toolkit, Tanstack Query, and React Router, using the public [FakeStore API](https://fakestoreapi.com) for mock data.
+A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS, Redux Toolkit, Tanstack Query, and React Router, using the public [FakeStore API](https://fakeapi.platzi.com/en) for mock data.
 
 ## Tech Stack
 
