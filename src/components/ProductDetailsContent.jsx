@@ -20,7 +20,7 @@ export default function ProductDetailsContent({ data }) {
   }
 
   function handleAddToCart() {
-    console.log(`added itemID ${id} with quantity of ${quantity}`);
+    // console.log(`added itemID ${id} with quantity of ${quantity}`);
     dispatch(cartActions.addItemToCart({ id, quantity }));
     setQuantity(() => 1);
   }
