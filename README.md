@@ -29,5 +29,6 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 3. Category Page
 4. Filter by categories
 5. Shopping Cart System
+6. Quantity Control & Remove Items
 
 ## Folder Structure (Modular)
