@@ -1,5 +1,9 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./util/http";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import RootLayout from "./pages/Root";
 import Products from "./pages/Products";
 import Categories from "./pages/Categories";
@@ -7,8 +11,6 @@ import NotFoundPage from "./pages/NotFoundPage";
 import CategoryProducts from "./pages/CategoryProducts";
 import ProductDetailPage from "./pages/ProductDetail";
 import CartPage from "./pages/CartPage";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./util/http";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,8 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+
+
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />

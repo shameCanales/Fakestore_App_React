@@ -1,7 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+let storedCartItems = [];
+
+try {
+  const raw = localStorage.getItem("cartItems");
+  storedCartItems = raw ? JSON.parse(raw) : [];
+} catch (err) {
+  console.error("Invalid CartItems in localStorage", err);
+}
+
 const initialCartState = {
-  items: [],
+  items: storedCartItems, // if storedCartItems exist in localStorage, parse it to an array, otherwise initialize as an empty array
 };
 
 const cartSlice = createSlice({
@@ -46,6 +55,9 @@ const cartSlice = createSlice({
       //   );
       //   state.items.splice(itemIndexToRemove, 1);
       // }
+    },
+    clearCart(state) {
+      state.items = [];
     },
   },
 });
