@@ -1,4 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 export const queryClient = new QueryClient();
 
@@ -12,28 +13,6 @@ export async function fetchProducts({ signal }) {
 
     if (!response.ok) {
       const error = new Error("An error occured while fetching products");
-      error.code = response.status;
-      error.info = data;
-      throw error;
-    }
-
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function fetchProductById({ id, signal }) {
-  try {
-    const response = await fetch(
-      `https://api.escuelajs.co/api/v1/products/${id}`,
-      { signal }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      const error = new Error("An error occured while fetching the product");
       error.code = response.status;
       error.info = data;
       throw error;
@@ -66,17 +45,17 @@ export async function fetchCategories({ signal }) {
   }
 }
 
-export async function fetchProductsByCategoryId({ id, signal }) {
+export async function fetchProductById({ id, signal }) {
   try {
     const response = await fetch(
-      `https://api.escuelajs.co/api/v1/categories/${id}/products`,
-      signal
+      `https://api.escuelajs.co/api/v1/products/${id}`,
+      { signal }
     );
 
     const data = await response.json();
 
     if (!response.ok) {
-      const error = new Error("An error occured while fetching products");
+      const error = new Error("An error occured while fetching the product");
       error.code = response.status;
       error.info = data;
       throw error;
@@ -108,3 +87,32 @@ export async function fetchCategoryNameById({ signal, id }) {
     throw error;
   }
 }
+
+export async function fetchProductsByCategoryId({ id, signal }) {
+  try {
+    const response = await fetch(
+      `https://api.escuelajs.co/api/v1/categories/${id}/products`,
+      signal
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const error = new Error("An error occured while fetching products");
+      error.code = response.status;
+      error.info = data;
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const api = axios.create({
+  baseURL: "https://api.escuelajs.co/api/v1",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
