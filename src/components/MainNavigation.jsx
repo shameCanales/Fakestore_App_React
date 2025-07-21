@@ -1,10 +1,14 @@
 import fakestorelogo from "../assets/fkstorelogo.png";
 import { NavLink, useLocation } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 import LinkText from "../UI/LinkText";
 import cartIcon from "../assets/grocery-store.png";
+import { authActions } from "../store/auth-slice";
 
 export default function MainNavigation() {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const routeNameMap = {
     "/": "home",
@@ -12,7 +16,11 @@ export default function MainNavigation() {
     "/cart": "cart",
   };
 
-  const currentPage = routeNameMap[location.pathname] || "ilam";
+  const currentPage = routeNameMap[location.pathname] || "wala";
+
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+  };
 
   return (
     <header className="bg-stone-900 flex justify-between items-center p-4">
@@ -45,6 +53,19 @@ export default function MainNavigation() {
             <LinkText name="Cart" active={currentPage === "cart"} />
           </NavLink>
         </button>
+
+        {isLoggedIn ? (
+          <button
+            className="bg-red-600 text-stone-50 py-2 px-4 rounded-lg montserrat-bold"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        ) : (
+          <button className="bg-lime-600 text-stone-50 py-2 px-4 rounded-lg montserrat-bold">
+            <NavLink to="/login">Login</NavLink>
+          </button>
+        )}
       </nav>
     </header>
   );

@@ -1,11 +1,15 @@
-import ImageCarousel from "./ImageCarousel";
 import { useState } from "react";
-import Button from "../UI/button";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router";
 import { cartActions } from "../store/cart-slice";
-import { useDispatch } from "react-redux";
+import ImageCarousel from "./ImageCarousel";
+import Button from "../UI/button";
 
 export default function ProductDetailsContent({ data }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   const [quantity, setQuantity] = useState(1);
   const { id, title, slug, price, description, category, images } = data;
 
@@ -20,9 +24,14 @@ export default function ProductDetailsContent({ data }) {
   }
 
   function handleAddToCart() {
-    // console.log(`added itemID ${id} with quantity of ${quantity}`);
-    dispatch(cartActions.addItemToCart({ id, quantity }));
-    setQuantity(() => 1);
+    if (!isLoggedIn) {
+      // return <Navigate to="/login" replace={true} />;
+      navigate("/login");
+    } else {
+      // console.log(`added itemID ${id} with quantity of ${quantity}`);
+      dispatch(cartActions.addItemToCart({ id, quantity }));
+      setQuantity(() => 1);
+    }
   }
 
   return (

@@ -71,3 +71,7 @@ export default function LoginPage() {
     </div>
   );
 }
+
+//credential for testing
+// john@mail.com 
+// changeme
