@@ -12,6 +12,7 @@ export default function MainNavigation() {
 
   const routeNameMap = {
     "/": "home",
+    "/products": "products",
     "/categories": "categories",
     "/cart": "cart",
   };
@@ -34,7 +35,12 @@ export default function MainNavigation() {
         <ul className="flex items-center border-r-stone-50 border-r-2">
           <li>
             <NavLink to="/">
-              <LinkText name="Products" active={currentPage === "home"} />
+              <LinkText name="Home" active={currentPage === "home"} />
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="products">
+              <LinkText name="Products" active={currentPage === "products"} />
             </NavLink>
           </li>
           <li>

@@ -22,7 +22,7 @@ export default function LoginPage() {
         onSuccess: (data) => {
           //data is the returned response from the loginUser function
           dispatch(authActions.login(data.access_token)); // pass the access token to the login action and update the state in the store
-          navigate("/"); // navigate to the home page after successful login
+          navigate("/products"); // navigate to the products page after successful login
         },
         onError: () => {
           console.error("login failed");
