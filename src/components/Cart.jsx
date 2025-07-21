@@ -71,6 +71,7 @@ export default function Cart() {
       dispatch(cartActions.removeItemFromCart({ id }));
     }
 
+
     content = (
       <ul className="mt-15">
         {completeCartItemDetails.map((item) => (
