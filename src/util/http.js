@@ -3,11 +3,16 @@ import axios from "axios";
 
 export const queryClient = new QueryClient();
 
-export async function fetchProducts({ signal }) {
+export async function fetchProducts({ page = 1, limit = 6, signal }) {
   try {
-    const response = await fetch("https://api.escuelajs.co/api/v1/products", {
-      signal,
-    });
+    const offset = (page - 1) * limit;
+
+    const response = await fetch(
+      `https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`,
+      {
+        signal,
+      }
+    );
 
     const data = await response.json();
 

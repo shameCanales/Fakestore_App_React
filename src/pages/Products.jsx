@@ -3,13 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../util/http";
 import ProductCard from "../components/ProductCard";
 import Heading from "../UI/Heading";
+import PaginationBtn from "../UI/PaginationBtn";
 
 export default function Products() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const limit = 9;
 
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["products"],
-    queryFn: ({ signal }) => fetchProducts({ signal }),
+    queryKey: ["products", page, limit], // include page in the query key to refetch when page changes. it's a dependency
+    queryFn: ({ signal }) => fetchProducts({ page, limit, signal }),
+    keepPreviousData: true, // to keep the previous data while fetching new data
     staleTime: 2 * 60 * 1000,
   });
 
@@ -30,7 +34,7 @@ export default function Products() {
       const [min, max] = query.split("-").map(Number); // destructure the min and max values from the query by splitting it at the dash and converting them to numbers
       return products.filter(
         //where product price is within the range of min and max
-        (product) => products.price >= min && products.price <= max
+        (product) => product.price >= min && product.price <= max
       );
     }
 
@@ -64,19 +68,39 @@ export default function Products() {
   if (data) {
     const filteredProducts = filterProducts(data); //passing the data to the filterProducts function
 
+    const isFirstPage = page === 1; // true or false
+    const isLastPage = filteredProducts?.length < limit;
+
     content = (
-      <ul className="grid grid-cols-3 gap-5 mt-5">
-        {filteredProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            id={product.id}
-            imgSrc={product.images[0]}
-            title={product.title}
-            description={product.description}
-            price={product.price}
-          />
-        ))}
-      </ul>
+      <div>
+        <ul className="grid grid-cols-3 gap-5 mt-5">
+          {filteredProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              imgSrc={product.images[0]}
+              title={product.title}
+              description={product.description}
+              price={product.price}
+            />
+          ))}
+        </ul>
+
+        <div className="flex justify-center gap-4 my-10">
+          <PaginationBtn
+            handleClick={() => setPage((prev) => prev - 1)}
+            isDisabled={isFirstPage}
+          >
+            Previous
+          </PaginationBtn>
+          <PaginationBtn
+            handleClick={() => setPage((prev) => prev + 1)}
+            isDisabled={isLastPage}
+          >
+            Next
+          </PaginationBtn>
+        </div>
+      </div>
     );
   }
   return (
