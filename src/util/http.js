@@ -3,6 +3,14 @@ import axios from "axios";
 
 export const queryClient = new QueryClient();
 
+//used for logging in, creating user, 
+export const api = axios.create({
+  baseURL: "https://api.escuelajs.co/api/v1",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export async function fetchProducts({ page = 1, limit = 6, signal }) {
   try {
     const offset = (page - 1) * limit;
@@ -114,10 +122,3 @@ export async function fetchProductsByCategoryId({ id, signal }) {
     throw error;
   }
 }
-
-export const api = axios.create({
-  baseURL: "https://api.escuelajs.co/api/v1",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});

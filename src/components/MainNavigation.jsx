@@ -1,7 +1,7 @@
 import fakestorelogo from "../assets/fkstorelogo.png";
 import { NavLink, useLocation } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import LinkText from "../UI/LinkText";
+import NavLinkText from "../UI/NavLinkText";
 import cartIcon from "../assets/grocery-store.png";
 import { authActions } from "../store/auth-slice";
 
@@ -35,17 +35,20 @@ export default function MainNavigation() {
         <ul className="flex items-center border-r-stone-50 border-r-2">
           <li>
             <NavLink to="/">
-              <LinkText name="Home" active={currentPage === "home"} />
+              <NavLinkText name="Home" active={currentPage === "home"} />
             </NavLink>
           </li>
           <li>
             <NavLink to="products">
-              <LinkText name="Products" active={currentPage === "products"} />
+              <NavLinkText
+                name="Products"
+                active={currentPage === "products"}
+              />
             </NavLink>
           </li>
           <li>
             <NavLink to="categories">
-              <LinkText
+              <NavLinkText
                 name="Categories"
                 active={currentPage === "categories"}
               />
@@ -56,7 +59,7 @@ export default function MainNavigation() {
         <button className="flex items-center">
           <img src={cartIcon} alt="Cart icon" className="w-[20px] mr-2 ml-10" />
           <NavLink to="cart">
-            <LinkText name="Cart" active={currentPage === "cart"} />
+            <NavLinkText name="Cart" active={currentPage === "cart"} />
           </NavLink>
         </button>
 

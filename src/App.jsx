@@ -11,6 +11,7 @@ import ProductDetailPage from "./pages/ProductDetail";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import Home from "./pages/Home";
+import CreateUser from "./pages/CreateUserPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+      {
+        path: "create-user",
+        element: <CreateUser />,
       },
 
       {

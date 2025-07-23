@@ -33,5 +33,6 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 10. Pagination
 11. Home Page (Incomplete layout)
 12. Clear Cart
+13. Create New User
 
 ## Folder Structure (Modular)

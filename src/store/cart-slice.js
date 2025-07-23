@@ -46,15 +46,6 @@ const cartSlice = createSlice({
       const itemToEdit = state.items.find((item) => item.id === id);
 
       itemToEdit.quantity -= 1;
-
-      // if (itemToEdit.quantity > 1) {
-      //   itemToEdit.quantity -= 1;
-      // } else {
-      //   const itemIndexToRemove = state.items.findIndex(
-      //     (item) => item.id === id
-      //   );
-      //   state.items.splice(itemIndexToRemove, 1);
-      // }
     },
     clearCart(state) {
       state.items = [];
