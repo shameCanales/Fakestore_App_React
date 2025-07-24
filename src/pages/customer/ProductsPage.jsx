@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "../util/http";
-import ProductCard from "../components/ProductCard";
-import Heading from "../UI/Heading";
-import PaginationBtn from "../UI/PaginationBtn";
+import { fetchProducts } from "../../util/http";
+import ProductCard from "../../components/ProductCard";
+import Heading from "../../UI/Heading";
+import PaginationBtn from "../../UI/PaginationBtn";
 
-export default function Products() {
+export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const limit = 9;

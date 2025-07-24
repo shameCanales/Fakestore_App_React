@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import FormInput from "../UI/FormInput";
-import FormLabel from "../UI/FormLabel";
-import { useCreateUser } from "../hooks/useCreateUser";
+import FormInput from "../../UI/FormInput";
+import FormLabel from "../../UI/FormLabel";
+import { useCreateUser } from "../../hooks/useCreateUser";
 
 export default function CreateUserPage() {
   const navigate = useNavigate();

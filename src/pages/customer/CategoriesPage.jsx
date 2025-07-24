@@ -1,11 +1,11 @@
-import CategoryItem from "../components/CategoryItem";
+import CategoryItem from "../../components/CategoryItem";
 import { useQuery } from "@tanstack/react-query";
-import { fetchCategories, fetchCategoryNameById } from "../util/http";
-import Heading from "../UI/Heading";
+import { fetchCategories, fetchCategoryNameById } from "../../util/http";
+import Heading from "../../UI/Heading";
 import { Outlet } from "react-router";
 import { useParams } from "react-router";
 
-export default function Categories() {
+export default function CategoriesPage() {
   const { categoryId } = useParams();
 
   const { data, isPending, isError, error } = useQuery({

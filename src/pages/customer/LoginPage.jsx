@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { authActions } from "../store/auth-slice";
 import { useNavigate, Link } from "react-router";
-import { useLogin } from "../hooks/useLogin";
-import FormInput from "../UI/FormInput";
-import FormLabel from "../UI/FormLabel";
+import { authActions } from "../../store/auth-slice";
+import { useLogin } from "../../hooks/useLogin";
+import FormInput from "../../UI/FormInput";
+import FormLabel from "../../UI/FormLabel";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");

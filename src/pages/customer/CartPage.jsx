@@ -1,8 +1,8 @@
-import Heading from "../UI/Heading";
-import Cart from "../components/Cart";
-import bin from "../assets/bin.png";
+import Heading from "../../UI/Heading";
+import Cart from "../../components/Cart";
+import bin from "../../assets/bin.png";
 import { useDispatch } from "react-redux";
-import { cartActions } from "../store/cart-slice";
+import { cartActions } from "../../store/cart-slice";
 
 export default function CartPage() {
   const dispatch = useDispatch();

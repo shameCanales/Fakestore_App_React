@@ -2,30 +2,38 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./util/http";
-import RootLayout from "./pages/Root";
-import Products from "./pages/Products";
-import Categories from "./pages/Categories";
+
+import CustomerRootLayout from "./pages/customer/CustomerRoot";
+import CustomerProtectedRoute from "./components/layout/CustomerProtectedRoute";
+import ProductsPage from "./pages/customer/ProductsPage";
+import CategoriesPage from "./pages/customer/CategoriesPage";
+import CategoryProductsPage from "./pages/customer/CategoryProductsPage";
+import ProductDetailPage from "./pages/customer/ProductDetailPage";
+import CartPage from "./pages/customer/CartPage";
+import LoginPage from "./pages/customer/LoginPage";
+import HomePage from "./pages/customer/HomePage";
+import CreateUserPage from "./pages/customer/CreateUserPage";
+
 import NotFoundPage from "./pages/NotFoundPage";
-import CategoryProducts from "./pages/CategoryProducts";
-import ProductDetailPage from "./pages/ProductDetail";
-import CartPage from "./pages/CartPage";
-import LoginPage from "./pages/LoginPage";
-import Home from "./pages/Home";
-import CreateUser from "./pages/CreateUserPage";
-import ProtectedRoute from "./components/ProtectedRoute";
+
+import AdminRootLayout from "./pages/admin/AdminRoot";
+import AdminProtectedRoute from "./components/layout/AdminProtectedRoute";
+import DashboardPage from "./pages/admin/DashboardPage";
+import ProductsListPage from "./pages/admin/ProductsListPage";
+import CategoriesListPage from "./pages/admin/CategoriesListPage";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <RootLayout />,
+    path: "/", //signifies?
+    element: <CustomerRootLayout />,
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <HomePage />,
       },
 
       {
-        element: <ProtectedRoute />, //protect only the routes below, protection is done by checking if the user is logged in in the ProtectedRoute component
+        element: <CustomerProtectedRoute />, //protect only the routes below, protection is done by checking if the user is logged in in the ProtectedRoute component
         children: [
           //routes that will be displayed only if the user is logged in. with the outlet component, the child routes will be rendered in the place of the <Outlet /> component in RootLayout
           {
@@ -34,7 +42,7 @@ const router = createBrowserRouter([
           },
           {
             path: "products",
-            element: <Products />,
+            element: <ProductsPage />,
           },
           {
             path: "products/:id",
@@ -42,11 +50,11 @@ const router = createBrowserRouter([
           },
           {
             path: "categories",
-            element: <Categories />,
+            element: <CategoriesPage />,
             children: [
               {
                 path: ":categoryId/products",
-                element: <CategoryProducts />,
+                element: <CategoryProductsPage />,
               },
             ],
           },
@@ -58,12 +66,35 @@ const router = createBrowserRouter([
       },
       {
         path: "create-user",
-        element: <CreateUser />,
+        element: <CreateUserPage />,
       },
-
       {
         path: "*", //any URL that isn't explicitly defined in my createBrowserRouter setup
         element: <NotFoundPage />,
+      },
+    ],
+  },
+
+  {
+    path: "/admin",
+    element: <AdminRootLayout />,
+    children: [
+      {
+        element: <AdminProtectedRoute />,
+        children: [
+          {
+            path: "dashboard",
+            element: <DashboardPage />,
+          },
+          {
+            path: "ProductList",
+            element: <ProductsListPage />,
+          },
+          {
+            path: "categoriesList",
+            element: <CategoriesListPage />,
+          },
+        ],
       },
     ],
   },

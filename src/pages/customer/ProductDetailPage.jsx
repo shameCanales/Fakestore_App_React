@@ -1,12 +1,12 @@
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { fetchProductById } from "../util/http";
+import { fetchProductById } from "../../util/http";
 // import { useEffect } from "react";
 import { Link } from "react-router";
-import arrow from "../assets/arrow.png";
-import ProductDetailsContent from "../components/ProductDetailsContent";
+import arrow from "../../assets/arrow.png";
+import ProductDetailsContent from "../../components/ProductDetailsContent";
 
-export default function ProductDetail() {
+export default function ProductDetailPage() {
   const params = useParams();
 
   const { data, isPending, isError, error } = useQuery({

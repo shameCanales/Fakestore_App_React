@@ -1,10 +1,9 @@
-import Heading from "../UI/Heading";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
-import { fetchProductsByCategoryId } from "../util/http";
-import ProductCard from "../components/ProductCard";
+import { fetchProductsByCategoryId } from "../../util/http";
+import ProductCard from "../../components/ProductCard";
 
-export default function CategoryProducts() {
+export default function CategoryProductsPage() {
   const { categoryId } = useParams();
 
   const { data, isPending, isError, error } = useQuery({
