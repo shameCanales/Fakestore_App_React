@@ -29,10 +29,12 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 6. Quantity Control & Remove Items
 7. SearchBar(filter title or slug, priceRance, Exactprice, categories)
 8. Persistent Cart using 'Localstorage and store.subscribe'
-9. Simulated customer and admin Login & Logout (FakeStore API JWT Authentication)
+9. Simulated Login & Logout (FakeStore API JWT Authentication)
 10. Pagination
 11. Home Page (Incomplete layout)
 12. Clear Cart
 13. Create New User
+14. Separated Admin and Customer protected routes
+15. added Role based access control
 
 ## Folder Structure (Modular)

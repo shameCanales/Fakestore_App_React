@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router";
 import { authActions } from "../../store/auth-slice";
 import { useLogin } from "../../hooks/useLogin";
+import { useGetProfileInfo } from "../../hooks/useGetProfileInfo";
 import FormInput from "../../UI/FormInput";
 import FormLabel from "../../UI/FormLabel";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const loginMutation = useLogin();
+
+  const token = useSelector((state) => state.auth.token);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,6 +22,13 @@ export default function LoginPage() {
     isError: isLoginError,
     error: loginError,
   } = useLogin();
+
+  const {
+    data: profileData,
+    isPending: gettingProfilePending,
+    isError: errorGettingProfile,
+    error: getProfileError,
+  } = useGetProfileInfo(token, !!token);
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
@@ -32,7 +41,7 @@ export default function LoginPage() {
         onSuccess: (data) => {
           //data is the returned response from the loginUser function
           dispatch(authActions.login(data.access_token)); // pass the access token to the login action and update the state in the store
-          navigate("/products"); // navigate to the products page after successful login
+          // navigate("/products"); // navigate to the products page after successful login
         },
         onError: () => {
           console.error("login failed");
@@ -40,6 +49,19 @@ export default function LoginPage() {
       }
     );
   };
+
+  // waiting for token and checking if the user is admin or customer to navigate to respective routes
+  useEffect(() => {
+    if (!profileData || gettingProfilePending || !token) return; //without !token, it will produce an infinite loop
+
+    if (profileData.role === "admin") {
+      navigate("/admin/dashboard", { replace: true });
+    } else if (profileData.role === "customer") {
+      navigate("/admin", { replace: true });
+    }
+
+    dispatch(authActions.setProfileData(profileData));
+  }, [profileData?.role, dispatch, navigate, token]); //profileData?.role because profileData?.role looks at role ('customer' or 'admin') while profiledata don't change still returns id, name, role(not checking it's inner content) it's the same. gets?
 
   return (
     <div className="border-2 border-stone-900 w-[620px] mx-auto mt-25 p-10 rounded-3xl">
@@ -85,6 +107,6 @@ export default function LoginPage() {
   );
 }
 
-//credential for testing
+//credential for testing customer
 // john@mail.com
 // changeme

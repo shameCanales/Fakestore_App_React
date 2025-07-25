@@ -1,11 +1,12 @@
 import fakestorelogo from "../assets/fkstorelogo.png";
-import { NavLink, useLocation } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import NavLinkText from "../UI/NavLinkText";
 import cartIcon from "../assets/grocery-store.png";
 import { authActions } from "../store/auth-slice";
 
 export default function MainNavigation() {
+  const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -21,6 +22,7 @@ export default function MainNavigation() {
 
   const handleLogout = () => {
     dispatch(authActions.logout());
+    navigate("/login");
   };
 
   return (

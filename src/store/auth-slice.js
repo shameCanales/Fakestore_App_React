@@ -7,6 +7,7 @@ const authSlice = createSlice({
   initialState: {
     token: initialToken || null, // token from localStorage or null if not present
     isLoggedIn: !!initialToken, // true if token exists, false otherwise
+    profileData: {},
   },
   reducers: {
     login(state, action) {
@@ -17,7 +18,22 @@ const authSlice = createSlice({
     logout(state) {
       state.token = null;
       state.isLoggedIn = null;
+      state.profileData = {};
       localStorage.removeItem("token");
+      localStorage.removeItem("userData");
+    },
+    setProfileData(state, action) {
+      const { id, email, password, name, role, avatar } = action.payload;
+
+      state.profileData = {
+        id,
+        email,
+        password,
+        name,
+        role,
+        avatar,
+      };
+      localStorage.setItem("userData", JSON.stringify(action.payload));
     },
   },
 });

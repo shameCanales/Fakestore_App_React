@@ -83,7 +83,7 @@ const router = createBrowserRouter([
         element: <AdminProtectedRoute />,
         children: [
           {
-            path: "dashboard",
+            index: true,
             element: <DashboardPage />,
           },
           {
