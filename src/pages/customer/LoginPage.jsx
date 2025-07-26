@@ -8,13 +8,15 @@ import FormInput from "../../UI/FormInput";
 import FormLabel from "../../UI/FormLabel";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const token = useSelector((state) => state.auth.token);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const token = useSelector((state) => state.auth.token);
+  const isFakeAdminState = useSelector((state) => state.auth.isFakeAdmin);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isFakeAdmin, setIsFakeAdmin] = useState(false);
 
   const {
     mutate: login,
@@ -32,6 +34,8 @@ export default function LoginPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
+
+    isFakeAdmin && dispatch(authActions.setIsFakeAdmin());
 
     login(
       { email, password }, // Pass the email and password to the login mutation
@@ -54,14 +58,14 @@ export default function LoginPage() {
   useEffect(() => {
     if (!profileData || gettingProfilePending || !token) return; //without !token, it will produce an infinite loop
 
-    if (profileData.role === "admin") {
-      navigate("/admin/dashboard", { replace: true });
-    } else if (profileData.role === "customer") {
+    if (profileData.role === "admin" || isFakeAdminState === true) {
       navigate("/admin", { replace: true });
+    } else if (profileData.role === "customer") {
+      navigate("/products", { replace: true });
     }
 
     dispatch(authActions.setProfileData(profileData));
-  }, [profileData?.role, dispatch, navigate, token]); //profileData?.role because profileData?.role looks at role ('customer' or 'admin') while profiledata don't change still returns id, name, role(not checking it's inner content) it's the same. gets?
+  }, [profileData?.role, dispatch, navigate, token, isFakeAdminState]); //profileData?.role because profileData?.role looks at role ('customer' or 'admin') while profiledata don't change still returns id, name, role(not checking it's inner content) it's the same. gets?
 
   return (
     <div className="border-2 border-stone-900 w-[620px] mx-auto mt-25 p-10 rounded-3xl">
@@ -87,6 +91,19 @@ export default function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+        </div>
+
+        <div className="flex items-center mt-5">
+          <input
+            type="checkbox"
+            name="isFakeAdmin"
+            id="isFakeAdmin"
+            value="isFakeAdmin"
+            checked={isFakeAdmin}
+            onChange={(e) => setIsFakeAdmin(e.target.checked)}
+            className="w-5 h-5 accent-stone-900 text-white "
+          />
+          <p className="ml-2 poppins-medium text-lg text-stone-700">Fake Admin for testing</p>
         </div>
 
         <Link to="/create-user">

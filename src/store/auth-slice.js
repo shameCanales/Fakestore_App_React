@@ -8,6 +8,7 @@ const authSlice = createSlice({
     token: initialToken || null, // token from localStorage or null if not present
     isLoggedIn: !!initialToken, // true if token exists, false otherwise
     profileData: {},
+    isFakeAdmin: false,
   },
   reducers: {
     login(state, action) {
@@ -19,8 +20,10 @@ const authSlice = createSlice({
       state.token = null;
       state.isLoggedIn = null;
       state.profileData = {};
+      state.isFakeAdmin = false;
       localStorage.removeItem("token");
       localStorage.removeItem("userData");
+      localStorage.removeItem("isFakeAdmin");
     },
     setProfileData(state, action) {
       const { id, email, password, name, role, avatar } = action.payload;
@@ -34,6 +37,10 @@ const authSlice = createSlice({
         avatar,
       };
       localStorage.setItem("userData", JSON.stringify(action.payload));
+    },
+    setIsFakeAdmin(state) {
+      state.isFakeAdmin = true;
+      localStorage.setItem("isFakeAdmin", state.isFakeAdmin);
     },
   },
 });
