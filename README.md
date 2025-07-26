@@ -35,6 +35,7 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 12. Clear Cart
 13. Create New User
 14. Separated Admin and Customer protected routes
-15. added Role based access control
+15. Role based access control
+16. admin Sidebar for navigation
 
 ## Folder Structure (Modular)

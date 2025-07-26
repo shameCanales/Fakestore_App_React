@@ -21,6 +21,7 @@ import AdminProtectedRoute from "./components/layout/AdminProtectedRoute";
 import DashboardPage from "./pages/admin/DashboardPage";
 import ProductsListPage from "./pages/admin/ProductsListPage";
 import CategoriesListPage from "./pages/admin/CategoriesListPage";
+import UsersList from "./pages/admin/UsersListPage";
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
           {
             path: "categoriesList",
             element: <CategoriesListPage />,
+          },
+          {
+            path: "usersList",
+            element: <UsersList />,
           },
         ],
       },
