@@ -20,8 +20,8 @@ export default function AdminSidebar() {
   const currentPage = routeNameMap[location.pathname] || "none";
 
   const handleLogout = () => {
+    navigate("/");
     dispatch(authActions.logout());
-    navigate("/login");
   };
   return (
     <div className="bg-stone-950  w-[300px] h-full">

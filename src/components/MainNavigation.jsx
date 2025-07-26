@@ -21,8 +21,8 @@ export default function MainNavigation() {
   const currentPage = routeNameMap[location.pathname] || "wala";
 
   const handleLogout = () => {
+    navigate("/");
     dispatch(authActions.logout());
-    navigate("/login");
   };
 
   return (

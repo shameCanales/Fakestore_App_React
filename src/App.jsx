@@ -41,23 +41,23 @@ const router = createBrowserRouter([
             path: "cart",
             element: <CartPage />,
           },
+        ],
+      },
+      {
+        path: "products",
+        element: <ProductsPage />,
+      },
+      {
+        path: "products/:id",
+        element: <ProductDetailPage />,
+      },
+      {
+        path: "categories",
+        element: <CategoriesPage />,
+        children: [
           {
-            path: "products",
-            element: <ProductsPage />,
-          },
-          {
-            path: "products/:id",
-            element: <ProductDetailPage />,
-          },
-          {
-            path: "categories",
-            element: <CategoriesPage />,
-            children: [
-              {
-                path: ":categoryId/products",
-                element: <CategoryProductsPage />,
-              },
-            ],
+            path: ":categoryId/products",
+            element: <CategoryProductsPage />,
           },
         ],
       },
