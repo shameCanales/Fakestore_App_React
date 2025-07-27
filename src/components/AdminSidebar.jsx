@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router";
 import fakestorelogo from "../assets/fkstorelogo.png";
 import { NavLink } from "react-router";
 import LinkSidebar from "../UI/LinkSidebar";
+import { QueryClient } from "@tanstack/react-query";
+import { queryClient } from "../util/http";
 
 export default function AdminSidebar() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -20,9 +22,9 @@ export default function AdminSidebar() {
   const currentPage = routeNameMap[location.pathname] || "none";
 
   const handleLogout = () => {
-    navigate("/");
     dispatch(authActions.logout());
   };
+
   return (
     <div className="bg-stone-950  w-[300px] h-full">
       <img

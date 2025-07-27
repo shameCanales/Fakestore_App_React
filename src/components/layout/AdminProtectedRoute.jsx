@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 
 export default function AdminProtectedRoute() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const isAdmin =
-    useSelector((state) => state.auth.profileData.role) === "admin";
+  const isFakeAdmin = useSelector((state) => state.auth.isFakeAdmin);
 
-  return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
+  return isLoggedIn && isFakeAdmin ? <Outlet /> : <Navigate to="/" />;
 }

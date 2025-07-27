@@ -35,8 +35,6 @@ export default function LoginPage() {
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
-    isFakeAdmin && dispatch(authActions.setIsFakeAdmin());
-
     login(
       { email, password }, // Pass the email and password to the login mutation
       {
@@ -45,7 +43,7 @@ export default function LoginPage() {
         onSuccess: (data) => {
           //data is the returned response from the loginUser function
           dispatch(authActions.login(data.access_token)); // pass the access token to the login action and update the state in the store
-          // navigate("/products"); // navigate to the products page after successful login
+          isFakeAdmin && dispatch(authActions.setIsFakeAdmin());
         },
         onError: () => {
           console.error("login failed");
@@ -56,16 +54,25 @@ export default function LoginPage() {
 
   // waiting for token and checking if the user is admin or customer to navigate to respective routes
   useEffect(() => {
+    console.log("useEffect is triggered");
+
     if (!profileData || gettingProfilePending || !token) return; //without !token, it will produce an infinite loop
 
-    if (profileData.role === "admin" || isFakeAdminState === true) {
-      navigate("/admin", { replace: true });
-    } else if (profileData.role === "customer") {
-      navigate("/products", { replace: true });
-    }
-
     dispatch(authActions.setProfileData(profileData));
-  }, [profileData?.role, dispatch, navigate, token, isFakeAdminState]); //profileData?.role because profileData?.role looks at role ('customer' or 'admin') while profiledata don't change still returns id, name, role(not checking it's inner content) it's the same. gets?
+
+    if (profileData.role === "customer" && !isFakeAdminState) {
+      navigate("/products", { replace: true });
+    } else if (profileData.role === "admin" || isFakeAdminState) {
+      navigate("/admin", { replace: true });
+    }
+  }, [
+    profileData, //{}
+    gettingProfilePending,
+    dispatch,
+    navigate,
+    token, //null
+    isFakeAdminState, //false
+  ]); //profileData?.role because profileData?.role looks at role ('customer' or 'admin') while profiledata don't change still returns id, name, role(not checking it's inner content) it's the same. gets?
 
   return (
     <div className="border-2 border-stone-900 w-[620px] mx-auto mt-25 p-10 rounded-3xl">
@@ -103,7 +110,9 @@ export default function LoginPage() {
             onChange={(e) => setIsFakeAdmin(e.target.checked)}
             className="w-5 h-5 accent-stone-900 text-white "
           />
-          <p className="ml-2 poppins-medium text-lg text-stone-700">Fake Admin for testing</p>
+          <p className="ml-2 poppins-medium text-lg text-stone-700">
+            Fake Admin for testing
+          </p>
         </div>
 
         <Link to="/create-user">
