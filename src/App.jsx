@@ -4,7 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./util/http";
 
 import CustomerRootLayout from "./pages/customer/CustomerRoot";
-import CustomerProtectedRoute from "./components/layout/CustomerProtectedRoute";
+import CustomerProtectedRoute from "./components/layout/CustomerProtectedRoute";           
 import ProductsPage from "./pages/customer/ProductsPage";
 import CategoriesPage from "./pages/customer/CategoriesPage";
 import CategoryProductsPage from "./pages/customer/CategoryProductsPage";
@@ -20,7 +20,7 @@ import AdminRootLayout from "./pages/admin/AdminRoot";
 import AdminProtectedRoute from "./components/layout/AdminProtectedRoute";
 import DashboardPage from "./pages/admin/DashboardPage";
 import ProductsListPage from "./pages/admin/ProductsListPage";
-import CategoriesListPage from "./pages/admin/CategoriesListPage";
+import CategoriesListPage from "./pages/admin/CategoriesListPage";   
 import UsersList from "./pages/admin/UsersListPage";
 
 const router = createBrowserRouter([

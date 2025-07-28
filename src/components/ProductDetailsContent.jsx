@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { cartActions } from "../store/cart-slice";
+import { uiActions } from "../store/ui-slice";
 import ImageCarousel from "./ImageCarousel";
 import Button from "../UI/button";
+import { showTimedToast } from "../store/ui-actions";
 
 export default function ProductDetailsContent({ data }) {
   const dispatch = useDispatch();
@@ -25,8 +27,15 @@ export default function ProductDetailsContent({ data }) {
 
   function handleAddToCart() {
     if (!isLoggedIn) {
-      // return <Navigate to="/login" replace={true} />;
-      navigate("/login");
+      dispatch(
+        showTimedToast({
+          title: "There is a problem",
+          message: "you cannot add item to cart unless logged in",
+          type: "error",
+        })
+      );
+
+      // navigate("/login", { replace: true });
     } else {
       // console.log(`added itemID ${id} with quantity of ${quantity}`);
       dispatch(cartActions.addItemToCart({ id, quantity }));
