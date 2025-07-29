@@ -34,10 +34,16 @@ export default function ProductDetailsContent({ data }) {
           type: "error",
         })
       );
-
-      // navigate("/login", { replace: true });
+      navigate("/login", { replace: true });
     } else {
-      // console.log(`added itemID ${id} with quantity of ${quantity}`);
+      console.log(`added itemID ${id} with quantity of ${quantity}`);
+      dispatch(
+        showTimedToast({
+          title: "Yes, Success!",
+          message: "successfully added item to cart",
+          type: "success",
+        })
+      );
       dispatch(cartActions.addItemToCart({ id, quantity }));
       setQuantity(() => 1);
     }
