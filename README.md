@@ -39,5 +39,6 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 16. admin Sidebar for navigation
 17. show error Toast when clicking addtocart but not logged in with ui-actions redux thunk
 18. show success toast when added to cart successfully
+19. Admin Product list
 
 ## Folder Structure (Modular)

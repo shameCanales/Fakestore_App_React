@@ -1,21 +1,16 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "../../util/http";
 import ProductCard from "../../components/ProductCard";
 import Heading from "../../UI/Heading";
 import PaginationBtn from "../../UI/PaginationBtn";
+import { useGetAllProducts } from "../../hooks/useGetAllProducts";
 
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const limit = 9;
 
-  const { data, isPending, isError, error } = useQuery({
-    queryKey: ["products", page, limit], // include page in the query key to refetch when page changes. it's a dependency
-    queryFn: ({ signal }) => fetchProducts({ page, limit, signal }),
-    keepPreviousData: true, // to keep the previous data while fetching new data
-    staleTime: 2 * 60 * 1000,
-  });
+  // include page in the query key to refetch when page changes. it's a dependency
+  const { data, isPending, isError, error } = useGetAllProducts(page, limit);
 
   function handleSearchInput(e) {
     setSearchQuery(e.target.value);

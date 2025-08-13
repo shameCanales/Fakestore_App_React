@@ -87,6 +87,7 @@ export default function LoginPage() {
           <FormInput
             type="email"
             value={email}
+            htmlId="email"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -96,6 +97,7 @@ export default function LoginPage() {
           <FormInput
             type="password"
             value={password}
+            htmlId="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
@@ -108,11 +110,10 @@ export default function LoginPage() {
             value="isFakeAdmin"
             checked={isFakeAdmin}
             onChange={(e) => setIsFakeAdmin(e.target.checked)}
-            className="w-5 h-5 accent-stone-900 text-white "
+            className="w-5 h-5 mr-2 accent-stone-900 text-white "
           />
-          <p className="ml-2 poppins-medium text-lg text-stone-700">
-            Fake Admin for testing
-          </p>
+
+          <FormLabel htmlFor="isFakeAdmin">Fake Admin for testing</FormLabel>
         </div>
 
         <Link to="/create-user">

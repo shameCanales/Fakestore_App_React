@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { cartActions } from "../store/cart-slice";
-import { uiActions } from "../store/ui-slice";
 import ImageCarousel from "./ImageCarousel";
 import Button from "../UI/button";
 import { showTimedToast } from "../store/ui-actions";
@@ -13,7 +12,7 @@ export default function ProductDetailsContent({ data }) {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const [quantity, setQuantity] = useState(1);
-  const { id, title, slug, price, description, category, images } = data;
+  const { id, title, price, description, category, images } = data;
 
   function handleIncrementQuantity() {
     setQuantity((prevQuantity) => prevQuantity + 1);

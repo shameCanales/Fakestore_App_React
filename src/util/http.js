@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const queryClient = new QueryClient();
 
-//used for logging in, creating user, 
+//used for logging in, creating user,
 export const api = axios.create({
   baseURL: "https://api.escuelajs.co/api/v1",
   headers: {
@@ -33,6 +33,7 @@ export async function fetchProducts({ page = 1, limit = 6, signal }) {
 
     return data;
   } catch (error) {
+    console.error("error fetching products", error);
     throw error;
   }
 }
@@ -53,8 +54,9 @@ export async function fetchCategories({ signal }) {
     }
 
     return data;
-  } catch (err) {
-    throw err;
+  } catch (error) {
+    console.error("error fetching categories", error);
+    throw error;
   }
 }
 
@@ -76,6 +78,7 @@ export async function fetchProductById({ id, signal }) {
 
     return data;
   } catch (error) {
+    console.error("error fetching specific product");
     throw error;
   }
 }
@@ -83,7 +86,8 @@ export async function fetchProductById({ id, signal }) {
 export async function fetchCategoryNameById({ signal, id }) {
   try {
     const response = await fetch(
-      `https://api.escuelajs.co/api/v1/categories/${id}`
+      `https://api.escuelajs.co/api/v1/categories/${id}`,
+      { signal }
     );
 
     const data = response.json();
@@ -97,6 +101,7 @@ export async function fetchCategoryNameById({ signal, id }) {
 
     return data;
   } catch (error) {
+    console.error("error fetching specific category", error);
     throw error;
   }
 }
@@ -119,6 +124,7 @@ export async function fetchProductsByCategoryId({ id, signal }) {
 
     return data;
   } catch (error) {
+    console.error("error fetching specific category products", error);
     throw error;
   }
 }
