@@ -1,7 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+// import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-let storedCartItems = [];
+// Define a Cart Item type
+interface CartItem {
+  id: string;
+  quantity: number;
+}
 
+// Define the shape of the cart state
+interface CartState {
+  items: CartItem[];
+}
+
+// Load cart items from localstorage safely
+let storedCartItems: CartItem[] = [];
 try {
   const raw = localStorage.getItem("cartItems");
   storedCartItems = raw ? JSON.parse(raw) : [];
@@ -9,7 +21,7 @@ try {
   console.error("Invalid CartItems in localStorage", err);
 }
 
-const initialCartState = {
+const initialCartState: CartState = {
   items: storedCartItems, // if storedCartItems exist in localStorage, parse it to an array, otherwise initialize as an empty array
 };
 
@@ -17,7 +29,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: initialCartState,
   reducers: {
-    addItemToCart(state, action) {
+    addItemToCart(state, action: PayloadAction<CartItem>) {
       const newItem = action.payload;
       const existingItem = state.items.find((item) => item.id === newItem.id);
 
@@ -30,22 +42,26 @@ const cartSlice = createSlice({
         existingItem.quantity += newItem.quantity;
       }
     },
-    removeItemFromCart(state, action) {
+    removeItemFromCart(state, action: PayloadAction<{ id: string }>) {
       const { id } = action.payload;
       const itemIndexToRemove = state.items.findIndex((item) => item.id === id);
       state.items.splice(itemIndexToRemove, 1);
     },
-    incrementItemQuantity(state, action) {
+    incrementItemQuantity(state, action: PayloadAction<{ id: string }>) {
       const { id } = action.payload;
       const itemToEdit = state.items.find((item) => item.id === id);
-      itemToEdit.quantity += 1;
+      if (itemToEdit) {
+        itemToEdit.quantity += 1;
+      }
     },
-    decrementItemQuantity(state, action) {
+    decrementItemQuantity(state, action: PayloadAction<{ id: string }>) {
       const { id } = action.payload;
       console.log(id);
       const itemToEdit = state.items.find((item) => item.id === id);
 
-      itemToEdit.quantity -= 1;
+      if (itemToEdit) {
+        itemToEdit.quantity -= 1;
+      }
     },
     clearCart(state) {
       state.items = [];

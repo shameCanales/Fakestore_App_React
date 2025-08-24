@@ -1,18 +1,34 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+
+interface ProfileData {
+  id?: string;
+  email?: string;
+  password?: string;
+  name?: string;
+  role?: string;
+  avatar?: string;
+}
+
+interface AuthState {
+  token: string | null;
+  isLoggedIn: boolean;
+  profileData: ProfileData;
+  isFakeAdmin: boolean;
+}
 
 const initialToken = localStorage.getItem("token");
-
+const initialState: AuthState = {
+  token: initialToken || null, // token from localStorage or null if not present
+  isLoggedIn: !!initialToken, // true if token exists, false otherwise
+  profileData: {},
+  isFakeAdmin: false,
+};
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    token: initialToken || null, // token from localStorage or null if not present
-    isLoggedIn: !!initialToken, // true if token exists, false otherwise
-    profileData: {},
-    isFakeAdmin: false,
-  },
+  initialState,
   reducers: {
-    login(state, action) {
+    login(state, action: PayloadAction<string>) {
       state.token = action.payload; // set the token from the payload
       state.isLoggedIn = true;
       localStorage.setItem("token", action.payload);
@@ -26,7 +42,7 @@ const authSlice = createSlice({
       localStorage.removeItem("userData");
       localStorage.removeItem("isFakeAdmin");
     },
-    setProfileData(state, action) {
+    setProfileData(state, action: PayloadAction<ProfileData>) {
       const { id, email, password, name, role, avatar } = action.payload;
 
       state.profileData = {

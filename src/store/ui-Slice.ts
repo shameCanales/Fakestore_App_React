@@ -1,5 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
-import authSlice from "./auth-slice";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+
+interface ToastState {
+  isVisible: boolean;
+  title: string;
+  message: string;
+  type: string;
+}
+
+interface UiState {
+  toast: ToastState;
+}
 
 const toastState = {
   isVisible: false,
@@ -12,9 +22,12 @@ const uiSlice = createSlice({
   name: "ui",
   initialState: {
     toast: toastState,
-  },
+  } as UiState,
   reducers: {
-    showToast(state, action) {
+    showToast(
+      state,
+      action: PayloadAction<{ title: string; message: string; type?: string }>
+    ) {
       state.toast = {
         isVisible: true,
         title: action.payload.title,
