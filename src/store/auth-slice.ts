@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface ProfileData {
-  id?: string;
+  id?: number;
   email?: string;
   password?: string;
   name?: string;

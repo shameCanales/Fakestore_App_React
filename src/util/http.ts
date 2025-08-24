@@ -11,21 +11,50 @@ export const api = axios.create({
   },
 });
 
-export async function fetchProducts({ page = 1, limit = 6, signal }) {
+// INTERFACES:
+//Shared Types
+interface FetchParams {
+  page?: number;
+  limit?: number;
+  id?: number;
+  signal?: AbortSignal;
+}
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: { id: number; name: string; image: string; slug: string };
+  images: string[];
+}
+
+interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  image: string;
+}
+
+export async function fetchProducts({
+  page = 1,
+  limit = 6,
+  signal,
+}: FetchParams) {
   try {
     const offset = (page - 1) * limit;
 
     const response = await fetch(
       `https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`,
       {
-        signal,
+        signal: signal ?? null,
       }
     );
 
-    const data = await response.json();
+    const data: Product[] = await response.json();
 
     if (!response.ok) {
-      const error = new Error("An error occured while fetching products");
+      const error: any = new Error("An error occured while fetching products");
       error.code = response.status;
       error.info = data;
       throw error;
@@ -38,16 +67,18 @@ export async function fetchProducts({ page = 1, limit = 6, signal }) {
   }
 }
 
-export async function fetchCategories({ signal }) {
+export async function fetchCategories({ signal }: FetchParams) {
   try {
     const response = await fetch("https://api.escuelajs.co/api/v1/categories", {
-      signal,
+      signal: signal ?? null,
     });
 
-    const data = await response.json();
+    const data: Category[] = await response.json();
 
     if (!response.ok) {
-      const error = new Error("An error occured while fetching categories");
+      const error: any = new Error(
+        "An error occured while fetching categories"
+      );
       error.code = response.status;
       error.info = data;
       throw error;
@@ -60,17 +91,19 @@ export async function fetchCategories({ signal }) {
   }
 }
 
-export async function fetchProductById({ id, signal }) {
+export async function fetchProductById({ id, signal }: FetchParams) {
   try {
     const response = await fetch(
       `https://api.escuelajs.co/api/v1/products/${id}`,
-      { signal }
+      { signal: signal ?? null }
     );
 
-    const data = await response.json();
+    const data: Product = await response.json();
 
     if (!response.ok) {
-      const error = new Error("An error occured while fetching the product");
+      const error: any = new Error(
+        "An error occured while fetching the product"
+      );
       error.code = response.status;
       error.info = data;
       throw error;
@@ -83,17 +116,17 @@ export async function fetchProductById({ id, signal }) {
   }
 }
 
-export async function fetchCategoryNameById({ signal, id }) {
+export async function fetchCategoryNameById({ signal, id }: FetchParams) {
   try {
     const response = await fetch(
       `https://api.escuelajs.co/api/v1/categories/${id}`,
-      { signal }
+      { signal: signal ?? null }
     );
 
-    const data = response.json();
+    const data: Category = await response.json();
 
     if (!response.ok) {
-      const error = new Error("An error occured while fetching products");
+      const error: any = new Error("An error occured while fetching products");
       error.code = response.status;
       error.info = data;
       throw error;
@@ -106,17 +139,17 @@ export async function fetchCategoryNameById({ signal, id }) {
   }
 }
 
-export async function fetchProductsByCategoryId({ id, signal }) {
+export async function fetchProductsByCategoryId({ id, signal }: FetchParams) {
   try {
     const response = await fetch(
       `https://api.escuelajs.co/api/v1/categories/${id}/products`,
-      signal
+      { signal: signal ?? null }
     );
 
-    const data = await response.json();
+    const data: Product[] = await response.json();
 
     if (!response.ok) {
-      const error = new Error("An error occured while fetching products");
+      const error: any = new Error("An error occured while fetching products");
       error.code = response.status;
       error.info = data;
       throw error;
