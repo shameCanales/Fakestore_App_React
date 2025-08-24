@@ -1,10 +1,15 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  RouteObject,
+} from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./util/http";
 
+//customer
 import CustomerRootLayout from "./pages/customer/CustomerRoot";
-import CustomerProtectedRoute from "./components/layout/CustomerProtectedRoute";           
+import CustomerProtectedRoute from "./components/layout/CustomerProtectedRoute";
 import ProductsPage from "./pages/customer/ProductsPage";
 import CategoriesPage from "./pages/customer/CategoriesPage";
 import CategoryProductsPage from "./pages/customer/CategoryProductsPage";
@@ -14,18 +19,20 @@ import LoginPage from "./pages/customer/LoginPage";
 import HomePage from "./pages/customer/HomePage";
 import CreateUserPage from "./pages/customer/CreateUserPage";
 
+//common
 import NotFoundPage from "./pages/NotFoundPage";
 
+// admin
 import AdminRootLayout from "./pages/admin/AdminRoot";
 import AdminProtectedRoute from "./components/layout/AdminProtectedRoute";
 import DashboardPage from "./pages/admin/DashboardPage";
 import ProductsListPage from "./pages/admin/ProductsListPage";
-import CategoriesListPage from "./pages/admin/CategoriesListPage";   
+import CategoriesListPage from "./pages/admin/CategoriesListPage";
 import UsersList from "./pages/admin/UsersListPage";
 
 const router = createBrowserRouter([
   {
-    path: "/", //signifies?
+    path: "/", //signifies the root path
     element: <CustomerRootLayout />,
     children: [
       {
