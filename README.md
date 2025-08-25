@@ -12,6 +12,7 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 | TanStack Query              | Server-State & Data Fetching           |
 | React Router                | Cliend-side Routing                    |
 | FakeStore API               | Mock backend for products, users, etc. |
+| TypeScript                  | Strict Type checking                   |
 
 ## To be added Features
 
@@ -40,5 +41,6 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 17. show error Toast when clicking addtocart but not logged in with ui-actions redux thunk
 18. show success toast when added to cart successfully
 19. Admin Product list
+20. Added Type check
 
 ## Folder Structure (Modular)

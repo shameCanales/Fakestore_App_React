@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 // Define a Cart Item type
 interface CartItem {
-  id: string;
+  id: number;
   quantity: number;
 }
 
@@ -42,19 +42,19 @@ const cartSlice = createSlice({
         existingItem.quantity += newItem.quantity;
       }
     },
-    removeItemFromCart(state, action: PayloadAction<{ id: string }>) {
+    removeItemFromCart(state, action: PayloadAction<{ id: number }>) {
       const { id } = action.payload;
       const itemIndexToRemove = state.items.findIndex((item) => item.id === id);
       state.items.splice(itemIndexToRemove, 1);
     },
-    incrementItemQuantity(state, action: PayloadAction<{ id: string }>) {
+    incrementItemQuantity(state, action: PayloadAction<{ id: number }>) {
       const { id } = action.payload;
       const itemToEdit = state.items.find((item) => item.id === id);
       if (itemToEdit) {
         itemToEdit.quantity += 1;
       }
     },
-    decrementItemQuantity(state, action: PayloadAction<{ id: string }>) {
+    decrementItemQuantity(state, action: PayloadAction<{ id: number }>) {
       const { id } = action.payload;
       console.log(id);
       const itemToEdit = state.items.find((item) => item.id === id);

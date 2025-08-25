@@ -17,19 +17,20 @@ interface FetchParams {
   page?: number;
   limit?: number;
   id?: number;
-  signal?: AbortSignal;
+  signal?: AbortSignal | undefined;
 }
 
-interface Product {
+export interface Product {
   id: number;
   title: string;
   price: number;
   description: string;
   category: { id: number; name: string; image: string; slug: string };
   images: string[];
+  slug: 
 }
 
-interface Category {
+export interface Category {
   id: number;
   name: string;
   slug: string;
@@ -40,14 +41,14 @@ export async function fetchProducts({
   page = 1,
   limit = 6,
   signal,
-}: FetchParams) {
+}: FetchParams): Promise<Product[]> {
   try {
     const offset = (page - 1) * limit;
 
     const response = await fetch(
       `https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`,
       {
-        signal: signal ?? null,
+        signal,
       }
     );
 

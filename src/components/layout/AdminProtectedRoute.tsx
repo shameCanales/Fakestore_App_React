@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store.js";
+import type { RootState } from "../../store/store.js";
 
 export default function AdminProtectedRoute() {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
