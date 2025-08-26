@@ -27,7 +27,7 @@ export interface Product {
   description: string;
   category: { id: number; name: string; image: string; slug: string };
   images: string[];
-  slug: 
+  slug: string;
 }
 
 export interface Category {
@@ -48,7 +48,7 @@ export async function fetchProducts({
     const response = await fetch(
       `https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`,
       {
-        signal,
+        signal: signal ?? null,
       }
     );
 
@@ -62,7 +62,7 @@ export async function fetchProducts({
     }
 
     return data;
-  } catch (error) {
+  } catch (error: any) {
     console.error("error fetching products", error);
     throw error;
   }
@@ -111,8 +111,8 @@ export async function fetchProductById({ id, signal }: FetchParams) {
     }
 
     return data;
-  } catch (error) {
-    console.error("error fetching specific product");
+  } catch (error: any) {
+    console.error("error fetching specific product", error);
     throw error;
   }
 }

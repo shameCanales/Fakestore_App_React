@@ -2,33 +2,33 @@ import "./App.css";
 import {
   createBrowserRouter,
   RouterProvider,
-  RouteObject,
+  // RouteObject,
 } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./util/http";
+import { queryClient } from "./util/http.js";
 
 //customer
-import CustomerRootLayout from "./pages/customer/CustomerRoot";
-import CustomerProtectedRoute from "./components/layout/CustomerProtectedRoute";
-import ProductsPage from "./pages/customer/ProductsPage";
-import CategoriesPage from "./pages/customer/CategoriesPage";
-import CategoryProductsPage from "./pages/customer/CategoryProductsPage";
-import ProductDetailPage from "./pages/customer/ProductDetailPage";
-import CartPage from "./pages/customer/CartPage";
-import LoginPage from "./pages/customer/LoginPage";
-import HomePage from "./pages/customer/HomePage";
-import CreateUserPage from "./pages/customer/CreateUserPage";
+import CustomerRootLayout from "./pages/customer/CustomerRoot.jsx";
+import CustomerProtectedRoute from "./components/layout/CustomerProtectedRoute.jsx";
+import ProductsPage from "./pages/customer/ProductsPage.jsx";
+import CategoriesPage from "./pages/customer/CategoriesPage.jsx";
+import CategoryProductsPage from "./pages/customer/CategoryProductsPage.jsx";
+import ProductDetailPage from "./pages/customer/ProductDetailPage.jsx";
+import CartPage from "./pages/customer/CartPage.jsx";
+import LoginPage from "./pages/customer/LoginPage.jsx";
+import HomePage from "./pages/customer/HomePage.jsx";
+import CreateUserPage from "./pages/customer/CreateUserPage.jsx";
 
 //common
-import NotFoundPage from "./pages/NotFoundPage";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 // admin
-import AdminRootLayout from "./pages/admin/AdminRoot";
-import AdminProtectedRoute from "./components/layout/AdminProtectedRoute";
-import DashboardPage from "./pages/admin/DashboardPage";
-import ProductsListPage from "./pages/admin/ProductsListPage";
-import CategoriesListPage from "./pages/admin/CategoriesListPage";
-import UsersList from "./pages/admin/UsersListPage";
+import AdminRootLayout from "./pages/admin/AdminRoot.jsx";
+import AdminProtectedRoute from "./components/layout/AdminProtectedRoute.jsx";
+import DashboardPage from "./pages/admin/DashboardPage.jsx";
+import ProductsListPage from "./pages/admin/ProductsListPage.jsx";
+import CategoriesListPage from "./pages/admin/CategoriesListPage.jsx";
+import UsersList from "./pages/admin/UsersListPage.jsx";
 
 const router = createBrowserRouter([
   {

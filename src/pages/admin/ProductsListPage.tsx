@@ -1,7 +1,7 @@
-import Heading from "../../UI/Heading";
+import Heading from "../../UI/Heading.js";
 import { useState } from "react";
-import { useGetAllProducts } from "../../hooks/useGetAllProducts";
-import type { Product } from "../../util/http";
+import { useGetAllProducts } from "../../hooks/useGetAllProducts.js";
+import type { Product } from "../../util/http.js";
 
 export default function ProductsListPage() {
   const [page, setPage] = useState<number>(1);
