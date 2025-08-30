@@ -112,6 +112,11 @@ export async function fetchProductById({ id, signal }: FetchParams) {
 
     return data;
   } catch (error: any) {
+    if (error.name === "AbortError") {
+      // this error is normal so i don't want to log it in browser. returning silently
+      return;
+    }
+
     console.error("error fetching specific product", error);
     throw error;
   }
