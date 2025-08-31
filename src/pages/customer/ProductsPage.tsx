@@ -8,10 +8,11 @@ import type { Product } from "../../util/http.js";
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [page, setPage] = useState<number>(1);
-  const limit = 9;
+  const limit = 20;
 
   // include page in the query key to refetch when page changes. it's a dependency
   const { data, isPending, isError, error } = useGetAllProducts(page, limit);
+
 
   function handleSearchInput(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.target.value);
@@ -21,9 +22,7 @@ export default function ProductsPage() {
   function filterProducts(products: Product[]) {
     //receives the products data
     if (!searchQuery.trim()) return products; // If search query is empty, return all products
-
     const query = searchQuery.trim().toLowerCase(); // Normalize the search query
-
     //Price Range Filter
     if (query.includes("-")) {
       const [min, max] = query.split("-").map(Number) as [number, number]; // destructure the min and max values from the query by splitting it at the dash and converting them to numbers
@@ -31,21 +30,20 @@ export default function ProductsPage() {
         (product) => product.price >= min && product.price <= max
       );
     }
-
     //Exact Price
     if (!isNaN(query as any)) {
       //if query is a number
       const price = parseFloat(query); // convert query to a number
       return products.filter((p) => p.price === price); //where product price is equal to the query
     }
-
     //Category or Title Filter
     return products.filter(
       (
         product // where product title includes query or product slug includes query
       ) =>
         product.title.toLowerCase().includes(query) ||
-        product.slug.toLowerCase().includes(query)
+        product.slug.toLowerCase().includes(query) ||
+        product.category.name.toLowerCase().includes(query)
     );
   }
 

@@ -9,7 +9,8 @@ interface ProfileData {
   avatar: string | undefined;
 }
 
-interface AuthState {
+export interface AuthState {
+  //always export state for inference
   token: string | null;
   isLoggedIn: boolean;
   profileData: ProfileData;

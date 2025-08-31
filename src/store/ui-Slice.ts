@@ -7,7 +7,7 @@ interface ToastState {
   type: string;
 }
 
-interface UiState {
+export interface UiState { 
   toast: ToastState;
 }
 
