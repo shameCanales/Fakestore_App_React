@@ -8,7 +8,7 @@ interface CartItem {
 }
 
 // Define the shape of the cart state
-interface CartState {
+export interface CartState {
   items: CartItem[];
 }
 

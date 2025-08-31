@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartSlice from "./cart-slice.js";
 import authSlice from "./auth-slice.js";
+import type { AuthState } from "./auth-slice.js";
 import uiSlice from "./ui-Slice.js";
 
 export const store = configureStore({

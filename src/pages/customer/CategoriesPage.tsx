@@ -5,21 +5,16 @@ import Heading from "../../UI/Heading.jsx";
 import { Outlet } from "react-router";
 import { useParams } from "react-router";
 import type { Category } from "../../util/http.js";
+import { useGetAllCategories } from "../../hooks/useGetAllCategories.js";
 
 export default function CategoriesPage() {
   const { categoryId } = useParams<{ categoryId: string }>();
 
-  const { data, isPending, isError, error }: UseQueryResult<Category[]> =
-    useQuery({
-      queryKey: ["categories"],
-      queryFn: ({ signal }: { signal?: AbortSignal }) =>
-        fetchCategories({ signal }),
-      staleTime: 2 * 60 * 1000,
-    });
+  const { data, isLoading, isError, error } = useGetAllCategories();
 
   const {
     data: category,
-    isPending: categoryLoading,
+    isLoading: categoryLoading,
     isError: categoryError,
   }: UseQueryResult<Category, Error> = useQuery({
     queryKey: ["category-name", categoryId],
@@ -33,7 +28,7 @@ export default function CategoriesPage() {
 
   let content: React.ReactNode = <p>Refresh to see categories</p>;
 
-  if (isPending) {
+  if (isLoading) {
     content = <p>fetching categories</p>;
   }
 
