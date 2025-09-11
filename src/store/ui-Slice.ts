@@ -7,22 +7,30 @@ interface ToastState {
   type: string;
 }
 
-export interface UiState { 
-  toast: ToastState;
+interface mobileNav {
+  isOpen: boolean;
 }
 
-const toastState = {
-  isVisible: false,
-  title: "",
-  message: "",
-  type: "", //error, success, info
+export interface UiState {
+  toast: ToastState;
+  mobileNav: mobileNav;
+}
+
+const initialState: UiState = {
+  toast: {
+    isVisible: false,
+    title: "",
+    message: "",
+    type: "", //error, success, info
+  },
+  mobileNav: {
+    isOpen: false,
+  },
 };
 
 const uiSlice = createSlice({
   name: "ui",
-  initialState: {
-    toast: toastState,
-  } as UiState,
+  initialState: initialState,
   reducers: {
     showToast(
       state,
@@ -42,6 +50,12 @@ const uiSlice = createSlice({
         message: "",
         type: "info",
       };
+    },
+    openMobileNav(state) {
+      state.mobileNav.isOpen = true;
+    },
+    closeMobileNav(state) {
+      state.mobileNav.isOpen = false;
     },
   },
 });

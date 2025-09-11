@@ -13,13 +13,13 @@ export default function LoginPage(): React.JSX.Element {
   const navigate = useNavigate();
 
   const token = useSelector((state: RootState) => state.auth.token);
-  const isFakeAdminState = useSelector(
-    (state: RootState) => state.auth.isFakeAdmin
-  );
+  // const isFakeAdminState = useSelector(
+  //   (state: RootState) => state.auth.isFakeAdmin
+  // );
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isFakeAdmin, setIsFakeAdmin] = useState(false);
+  // const [isFakeAdmin, setIsFakeAdmin] = useState(false);
 
   const {
     mutate: login,
@@ -46,7 +46,7 @@ export default function LoginPage(): React.JSX.Element {
         onSuccess: (data: { access_token: string }) => {
           //data is the returned response from the loginUser function
           dispatch(authActions.login(data.access_token)); // pass the access token to the login action and update the state in the store
-          isFakeAdmin && dispatch(authActions.setIsFakeAdmin());
+          // isFakeAdmin && dispatch(authActions.setIsFakeAdmin());
         },
         onError: () => {
           console.error("login failed");
@@ -63,9 +63,9 @@ export default function LoginPage(): React.JSX.Element {
 
     dispatch(authActions.setProfileData(profileData));
 
-    if (profileData.role === "customer" && !isFakeAdminState) {
+    if (profileData.role === "customer") {
       navigate("/products", { replace: true });
-    } else if (profileData.role === "admin" || isFakeAdminState) {
+    } else if (profileData.role === "admin" ) {
       navigate("/admin", { replace: true });
     }
   }, [
@@ -74,7 +74,7 @@ export default function LoginPage(): React.JSX.Element {
     dispatch,
     navigate,
     token, //null
-    isFakeAdminState, //false
+    // isFakeAdminState, //false
   ]); //profileData?.role because profileData?.role looks at role ('customer' or 'admin') while profiledata don't change still returns id, name, role(not checking it's inner content) it's the same. gets?
 
   return (
@@ -91,7 +91,9 @@ export default function LoginPage(): React.JSX.Element {
             type="email"
             value={email}
             htmlId="email"
-            onChange={(e : React.ChangeEvent<HTMLInputElement>) => setEmail(e.currentTarget.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.currentTarget.value)
+            }
           />
         </div>
         <div className="flex flex-col mt-5">
@@ -101,10 +103,12 @@ export default function LoginPage(): React.JSX.Element {
             type="password"
             value={password}
             htmlId="password"
-            onChange={(e : React.ChangeEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.currentTarget.value)
+            }
           />
         </div>
-
+{/* 
         <div className="flex items-center mt-5">
           <input
             type="checkbox"
@@ -112,12 +116,14 @@ export default function LoginPage(): React.JSX.Element {
             id="isFakeAdmin"
             value="isFakeAdmin"
             checked={isFakeAdmin}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIsFakeAdmin(e.target.checked)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setIsFakeAdmin(e.target.checked)
+            }
             className="w-5 h-5 mr-2 accent-stone-900 text-white "
           />
 
           <FormLabel htmlFor="isFakeAdmin">Fake Admin for testing</FormLabel>
-        </div>
+        </div> */}
 
         <Link to="/create-user">
           <p className="montserrat-medium underline underline-offset-4 mt-4">

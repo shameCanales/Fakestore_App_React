@@ -14,7 +14,7 @@ export interface AuthState {
   token: string | null;
   isLoggedIn: boolean;
   profileData: ProfileData;
-  isFakeAdmin: boolean;
+  // isFakeAdmin: boolean;
 }
 
 const initialToken = localStorage.getItem("token");
@@ -30,7 +30,7 @@ const initialState: AuthState = {
     role: undefined,
     avatar: undefined,
   },
-  isFakeAdmin: false,
+  // isFakeAdmin: false,
 };
 
 const authSlice = createSlice({
@@ -53,7 +53,7 @@ const authSlice = createSlice({
         role: undefined,
         avatar: undefined,
       };
-      state.isFakeAdmin = false;
+      // state.isFakeAdmin = false;
       localStorage.removeItem("token");
       localStorage.removeItem("userData");
       localStorage.removeItem("isFakeAdmin");
@@ -71,10 +71,10 @@ const authSlice = createSlice({
       };
       localStorage.setItem("userData", JSON.stringify(action.payload));
     },
-    setIsFakeAdmin(state) {
-      state.isFakeAdmin = true;
-      localStorage.setItem("isFakeAdmin", String(state.isFakeAdmin));
-    },
+    // setIsFakeAdmin(state) {
+    //   state.isFakeAdmin = true;
+    //   localStorage.setItem("isFakeAdmin", String(state.isFakeAdmin));
+    // },
   },
 });
 

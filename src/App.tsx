@@ -32,7 +32,7 @@ import UsersList from "./pages/admin/UsersListPage.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/", //signifies the root path
+    path: "/", 
     element: <CustomerRootLayout />,
     children: [
       {

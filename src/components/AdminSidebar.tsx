@@ -26,18 +26,12 @@ export default function AdminSidebar() {
   };
 
   return (
-    <div className="bg-stone-950  w-[300px] h-full">
-      <img
-        src={fakestorelogo}
-        alt="store logo"
-        className="w-[119px] h-[40px] mt-6 ml-6"
-      />
+    <div className="">
+      <img src={fakestorelogo} alt="store logo" className="" />
 
-      <p className="poppins-regular text-stone-400 text-lg mt-2 pl-7">
-        Admin Studio
-      </p>
+      <p className="">Admin Studio</p>
 
-      <nav className="mt-8 border-t-2 border-b-2 border-b-stone-600 border-t-stone-600 mx-2">
+      <nav className="">
         <ul>
           <li>
             <NavLink to="/admin">
@@ -70,10 +64,7 @@ export default function AdminSidebar() {
         </ul>
       </nav>
 
-      <button
-        className="text-red-500 montserrat-medium text-xl px-2 ml-6 mt-5 "
-        onClick={handleLogout}
-      >
+      <button className=" " onClick={handleLogout}>
         {`Logout =>`}
       </button>
     </div>

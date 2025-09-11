@@ -3,9 +3,11 @@ import { NavLink, useLocation, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import NavLinkText from "../UI/NavLinkText.jsx";
 import cartIcon from "../assets/grocery-store.png";
+import HamIcon from "../assets/hamMenu.png";
 import { authActions } from "../store/auth-slice.js";
 import type { RootState, AppDispatch } from "../store/store.js";
-
+import { uiActions } from "../store/ui-Slice.js";
+import NavButton from "./ui/navButton.js";
 
 export default function MainNavigation() {
   const navigate = useNavigate();
@@ -27,16 +29,21 @@ export default function MainNavigation() {
     navigate("/");
   };
 
-  return (
-    <header className="bg-stone-900 flex justify-between items-center p-4">
-      <img
-        src={fakestorelogo}
-        alt="store logo"
-        className="w-[119px] h-[40px]"
-      />
+  const handleOpenMobileNav = (): void => {
+    dispatch(uiActions.openMobileNav());
+  };
 
-      <nav className="flex items-center gap-2">
-        <ul className="flex items-center border-r-stone-50 border-r-2">
+  return (
+    <header className="bg-stone-900 flex justify-between items-center p-3">
+      <div className="flex">
+        <button onClick={() => handleOpenMobileNav()}>
+          <img className="w-5" src={HamIcon} alt="Open Menu" />
+        </button>
+        <img src={fakestorelogo} alt="store logo" className="w-20 ml-3" />
+      </div>
+
+      <nav className="hidden">
+        <ul className="">
           <li>
             <NavLink to="/">
               <NavLinkText name="Home" active={currentPage === "home"} />
@@ -59,27 +66,37 @@ export default function MainNavigation() {
             </NavLink>
           </li>
         </ul>
-
-        <button className="flex items-center">
-          <img src={cartIcon} alt="Cart icon" className="w-[20px] mr-2 ml-10" />
+        <button className="">
           <NavLink to="cart">
-            <NavLinkText name="Cart" active={currentPage === "cart"} />
+            <img
+              src={cartIcon}
+              alt="Cart icon"
+              className="w-[20px] mr-2 ml-10"
+            />
+            <div className="hidden">
+              <NavLinkText name="Cart" active={currentPage === "cart"} />
+            </div>
           </NavLink>
         </button>
-
-        {isLoggedIn ? (
-          <button
-            className="bg-red-600 text-stone-50 py-2 px-4 rounded-lg montserrat-bold"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        ) : (
-          <button className="bg-lime-600 text-stone-50 py-2 px-4 rounded-lg montserrat-bold">
-            <NavLink to="/login">Login</NavLink>
-          </button>
-        )}
       </nav>
+
+      {isLoggedIn ? (
+        <button
+          className="bg-red-600 text-stone-50 py-2 px-4 rounded-lg montserrat-bold"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+      ) : (
+        <div className="flex gap-2">
+          <NavButton>
+            <NavLink to="/login">Login</NavLink>
+          </NavButton>
+          <NavButton>
+            <NavLink to="/login">Signup</NavLink>
+          </NavButton>
+        </div>
+      )}
     </header>
   );
 }

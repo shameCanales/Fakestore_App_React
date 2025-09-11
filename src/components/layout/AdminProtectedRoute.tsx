@@ -4,7 +4,10 @@ import type { RootState } from "../../store/store.js";
 
 export default function AdminProtectedRoute() {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-  const isFakeAdmin = useSelector((state: RootState) => state.auth.isFakeAdmin);
+  // const isFakeAdmin = useSelector((state: RootState) => state.auth.isFakeAdmin);
+  const isAdmin =
+    useSelector((state: RootState) => state.auth.profileData.role) === "admin";
+  console.log(isAdmin);
 
-  return isLoggedIn && isFakeAdmin ? <Outlet /> : <Navigate to="/" />;
+  return isLoggedIn && isAdmin ? <Outlet /> : <Navigate to="/" />;
 }

@@ -130,12 +130,12 @@ export default function Cart() {
           />
         ))}
 
-        <div className="flex items-center mt-10 justify-end">
-          <p className="montserrat-medium text-xl">
+        <div className="">
+          <p className="m">
             Grand Total:{" "}
-            <span className="montserrat-bold">{grandTotal}.00 Pesos</span>
+            <span className="">{grandTotal}.00 Pesos</span>
           </p>
-          <button className="bg-stone-900 text-stone-50 px-4 py-2 poppins-bold ml-5 rounded-3xl ">
+          <button className="">
             Check Out!
           </button>
         </div>
