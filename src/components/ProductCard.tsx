@@ -16,17 +16,25 @@ export default function ProductCard({
   price,
 }: ProductCartProps) {
   return (
-    // /product/:${id} is incorrect. should only put colon on routes in app.jsx
     <Link to={`/products/${id}`}>
-      <div className="bg-stone-50 p-4 rounded-2xl mt-10">
-        <img
-          className="line-clamp-1 rounded-xl aspect-[16/9]"
-          src={imgSrc[0]}
-          alt={title}
-        />
-        <h1 className="montserrat-bold text-3xl mt-4">₱{price}</h1>
-        <p className="line-clamp-2 montserrat-semibold mt-2">{title}</p>
-        <p className="line-clamp-3 montserrat-regular mt-2">{description}</p>
+      <div className="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-200">
+        {/* Image */}
+        <div className="aspect-square w-full overflow-hidden">
+          <img
+            className="w-full h-full object-cover"
+            src={imgSrc[0]}
+            alt={title}
+          />
+        </div>
+
+        {/* Content */}
+        <div className="p-3">
+          <h1 className="text-lg font-bold text-gray-900">₱{price}</h1>
+          <p className="line-clamp-2 text-xs font-medium text-gray-800 mt-1">{title}</p>
+          <p className="line-clamp-2 text-xs text-gray-600 mt-1">
+            {description}
+          </p>
+        </div>
       </div>
     </Link>
   );

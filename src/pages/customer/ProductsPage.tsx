@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import ProductCard from "../../components/ProductCard.js";
-import Heading from "../../UI/Heading.jsx";
 import PaginationBtn from "../../UI/PaginationBtn.jsx";
 import { useGetAllProducts } from "../../hooks/useGetAllProducts.js";
 import type { Product } from "../../util/http.js";
@@ -10,71 +10,91 @@ export default function ProductsPage() {
   const [page, setPage] = useState<number>(1);
   const limit = 20;
 
-  // include page in the query key to refetch when page changes. it's a dependency
   const { data, isPending, isError, error } = useGetAllProducts(page, limit);
-
 
   function handleSearchInput(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.target.value);
   }
 
-  //Smart filter function. only in frontend
   function filterProducts(products: Product[]) {
-    //receives the products data
-    if (!searchQuery.trim()) return products; // If search query is empty, return all products
-    const query = searchQuery.trim().toLowerCase(); // Normalize the search query
-    //Price Range Filter
+    if (!searchQuery.trim()) return products;
+    const query = searchQuery.trim().toLowerCase();
+
     if (query.includes("-")) {
-      const [min, max] = query.split("-").map(Number) as [number, number]; // destructure the min and max values from the query by splitting it at the dash and converting them to numbers
+      const [min, max] = query.split("-").map(Number) as [number, number];
       return products.filter(
         (product) => product.price >= min && product.price <= max
       );
     }
-    //Exact Price
+
     if (!isNaN(query as any)) {
-      //if query is a number
-      const price = parseFloat(query); // convert query to a number
-      return products.filter((p) => p.price === price); //where product price is equal to the query
+      const price = parseFloat(query);
+      return products.filter((p) => p.price === price);
     }
-    //Category or Title Filter
+
     return products.filter(
-      (
-        product // where product title includes query or product slug includes query
-      ) =>
+      (product) =>
         product.title.toLowerCase().includes(query) ||
         product.slug.toLowerCase().includes(query) ||
         product.category.name.toLowerCase().includes(query)
     );
   }
 
-  let content = <p>Refresh to see products</p>;
+  let content = <p className="text-center text-gray-500 mt-10">Refresh to see products</p>;
 
   if (isPending) {
-    content = <p>Getting available products for you...</p>;
+    content = <p className="text-center text-gray-500 mt-10">Getting available products for you...</p>;
   }
 
   if (isError) {
-    content = <p>Something went wrong: {error.message}</p>;
+    content = (
+      <p className="text-center text-red-500 mt-10">
+        Something went wrong: {error.message}
+      </p>
+    );
   }
 
   if (data) {
-    const filteredProducts = filterProducts(data); //passing the data to the filterProducts function
-
-    const isFirstPage = page === 1; // true or false
+    const filteredProducts = filterProducts(data);
+    const isFirstPage = page === 1;
     const isLastPage = filteredProducts?.length < limit;
 
     content = (
       <div>
-        <ul className="grid grid-cols-3 gap-5 mt-5">
+        <ul
+          className="
+            grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5
+            gap-4 sm:gap-6 mt-6
+          "
+        >
           {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              imgSrc={product.images}
-              title={product.title}
-              description={product.description}
-              price={product.price}
-            />
+            <li key={product.id}>
+              <Link to={`/products/${product.id}`}>
+                <div className="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-200">
+                  {/* Image */}
+                  <div className="aspect-square w-full overflow-hidden">
+                    <img
+                      className="w-full h-full object-cover"
+                      src={product.images[0]}
+                      alt={product.title}
+                    />
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-3">
+                    <h1 className="text-base sm:text-lg font-bold text-gray-900">
+                      ₱{product.price}
+                    </h1>
+                    <p className="line-clamp-2 text-xs sm:text-sm font-medium text-gray-800 mt-1">
+                      {product.title}
+                    </p>
+                    <p className="line-clamp-2 text-xs text-gray-600 mt-1">
+                      {product.description}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            </li>
           ))}
         </ul>
 
@@ -95,20 +115,29 @@ export default function ProductsPage() {
       </div>
     );
   }
+
   return (
-    <div className="bg-[#DCDCD]">
-      <div className="flex items-center gap-15">
-        <Heading text="Products" />
+    <div className="min-h-screen bg-gray-50 px-4 sm:px-8 py-6">
+      {/* Header + Search */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Products</h1>
 
         <input
           type="text"
-          placeholder="Search by Title, price, range e.g. 10-50 or category"
+          placeholder="Search by Title, Price, Range (10-50), or Category"
           value={searchQuery}
           onChange={handleSearchInput}
-          className="shadow-md rounded-lg text-stone-950 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-800 montserrat-medium py-4 px-8 w-full mt-16"
+          className="
+            w-full sm:w-80
+            shadow-sm border border-gray-300 rounded-lg
+            text-gray-900 placeholder-gray-500
+            focus:outline-none focus:ring-2 focus:ring-green-600
+            py-2 px-4 text-sm
+          "
         />
       </div>
 
+      {/* Product grid / messages */}
       <main>{content}</main>
     </div>
   );

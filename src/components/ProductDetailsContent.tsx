@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { cartActions } from "../store/cart-slice.js";
 import ImageCarousel from "./ImageCarousel.js";
-import Button from "../UI/button.jsx";
+import Button from "../UI/Button.jsx";
 import { showTimedToast } from "../store/ui-actions.js";
 import type { RootState, AppDispatch } from "../store/store.js";
 
@@ -69,8 +69,8 @@ export default function ProductDetailsContent({
   }
 
   return (
-    <div className="mt-20 grid grid-cols-2 gap-15">
-      <div>
+    <div className="mt-20 grid lg:grid-cols-2  gap-15">
+      <div className="order-2">
         <p className="montserrat-bold text-2xl">{title}</p>
         <p className="montserrat mt-5 text-lg">{description}</p>
         <p className="poppins-medium mt-6">

@@ -17,7 +17,7 @@ export default function CustomerRootLayout() {
     <>
       {mobileNavIsOpen && <MobileNav />}
       <MainNavigation />
-      <main className="bg-stone-950 text-slate-50 px-3">
+      <main className="px-3 montserrat-regular">
         <Outlet />
       </main>
       {toastIsVisible && <Toast />}

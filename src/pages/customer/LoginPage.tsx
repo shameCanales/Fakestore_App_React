@@ -65,7 +65,7 @@ export default function LoginPage(): React.JSX.Element {
 
     if (profileData.role === "customer") {
       navigate("/products", { replace: true });
-    } else if (profileData.role === "admin" ) {
+    } else if (profileData.role === "admin") {
       navigate("/admin", { replace: true });
     }
   }, [
@@ -79,7 +79,7 @@ export default function LoginPage(): React.JSX.Element {
 
   return (
     <div className="border-2 border-stone-900 w-[620px] mx-auto mt-25 p-10 rounded-3xl">
-      <h1 className="montserrat-bold text-4xl">Login Ngani</h1>
+      <h1 className="montserrat-bold text-4xl">Login</h1>
       <p className="montserrat-medium mt-4 text-stone-600">
         Please enter your credentials
       </p>
@@ -108,7 +108,7 @@ export default function LoginPage(): React.JSX.Element {
             }
           />
         </div>
-{/* 
+        {/* 
         <div className="flex items-center mt-5">
           <input
             type="checkbox"

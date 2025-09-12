@@ -7,11 +7,12 @@ import HamIcon from "../assets/hamMenu.png";
 import { authActions } from "../store/auth-slice.js";
 import type { RootState, AppDispatch } from "../store/store.js";
 import { uiActions } from "../store/ui-Slice.js";
-import NavButton from "./ui/navButton.js";
+import NavButton from "./ui/NavButton.js";
+import { useEffect } from "react";
 
 export default function MainNavigation() {
   const navigate = useNavigate();
-  const location = useLocation(); // Already typed react router.
+  const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
@@ -24,6 +25,10 @@ export default function MainNavigation() {
 
   const currentPage: string = routeNameMap[location.pathname] || "wala";
 
+  useEffect(() => {
+    dispatch(uiActions.closeMobileNav());
+  }, [location, dispatch]);
+
   const handleLogout = (): void => {
     dispatch(authActions.logout());
     navigate("/");
@@ -34,69 +39,60 @@ export default function MainNavigation() {
   };
 
   return (
-    <header className="bg-stone-900 flex justify-between items-center p-3">
-      <div className="flex">
-        <button onClick={() => handleOpenMobileNav()}>
-          <img className="w-5" src={HamIcon} alt="Open Menu" />
-        </button>
-        <img src={fakestorelogo} alt="store logo" className="w-20 ml-3" />
-      </div>
+    <header className="bg-stone-900 text-stone-100 shadow-md sticky top-0 left-0 w-full z-0">
+      <div className="flex justify-between items-center px-4 md:px-10 py-3">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleOpenMobileNav}
+            className="lg:hidden focus:outline-none"
+          >
+            <img className="w-6" src={HamIcon} alt="Open Menu" />
+          </button>
+          <img src={fakestorelogo} alt="store logo" className="w-24" />
 
-      <nav className="hidden">
-        <ul className="">
-          <li>
+          <nav className="hidden lg:flex items-center gap-12 ml-15">
             <NavLink to="/">
               <NavLinkText name="Home" active={currentPage === "home"} />
             </NavLink>
-          </li>
-          <li>
-            <NavLink to="products">
+            <NavLink to="/products">
               <NavLinkText
                 name="Products"
                 active={currentPage === "products"}
               />
             </NavLink>
-          </li>
-          <li>
-            <NavLink to="categories">
+            <NavLink to="/categories">
               <NavLinkText
                 name="Categories"
                 active={currentPage === "categories"}
               />
             </NavLink>
-          </li>
-        </ul>
-        <button className="">
-          <NavLink to="cart">
-            <img
-              src={cartIcon}
-              alt="Cart icon"
-              className="w-[20px] mr-2 ml-10"
-            />
-            <div className="hidden">
-              <NavLinkText name="Cart" active={currentPage === "cart"} />
-            </div>
-          </NavLink>
-        </button>
-      </nav>
-
-      {isLoggedIn ? (
-        <button
-          className="bg-red-600 text-stone-50 py-2 px-4 rounded-lg montserrat-bold"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
-      ) : (
-        <div className="flex gap-2">
-          <NavButton>
-            <NavLink to="/login">Login</NavLink>
-          </NavButton>
-          <NavButton>
-            <NavLink to="/login">Signup</NavLink>
-          </NavButton>
+          </nav>
         </div>
-      )}
+
+        {/* Auth Section */}
+        <div className="flex gap-4">
+          <NavLink to="/cart" className="hidden lg:block">
+            <img src={cartIcon} alt="Cart" className="w-6" />
+          </NavLink>
+          {isLoggedIn ? (
+            <button
+              className="hidden md:block bg-red-600 hover:bg-red-500 transition-colors text-white py-2 px-4 rounded-xl font-medium"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          ) : (
+            <div className="hidden md:flex gap-3">
+              <NavButton>
+                <NavLink to="/login">Login</NavLink>
+              </NavButton>
+              <NavButton>
+                <NavLink to="/signup">Signup</NavLink>
+              </NavButton>
+            </div>
+          )}
+        </div>
+      </div>
     </header>
   );
 }
