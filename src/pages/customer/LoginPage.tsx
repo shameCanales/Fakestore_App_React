@@ -11,15 +11,9 @@ import type { RootState, AppDispatch } from "../../store/store.js";
 export default function LoginPage(): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-
   const token = useSelector((state: RootState) => state.auth.token);
-  // const isFakeAdminState = useSelector(
-  //   (state: RootState) => state.auth.isFakeAdmin
-  // );
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [isFakeAdmin, setIsFakeAdmin] = useState(false);
 
   const {
     mutate: login,
@@ -57,12 +51,8 @@ export default function LoginPage(): React.JSX.Element {
 
   // waiting for token and checking if the user is admin or customer to navigate to respective routes
   useEffect(() => {
-    console.log("useEffect is triggered");
-
     if (!profileData || gettingProfilePending || !token) return; //without !token, it will produce an infinite loop
-
     dispatch(authActions.setProfileData(profileData));
-
     if (profileData.role === "customer") {
       navigate("/products", { replace: true });
     } else if (profileData.role === "admin") {
@@ -74,7 +64,6 @@ export default function LoginPage(): React.JSX.Element {
     dispatch,
     navigate,
     token, //null
-    // isFakeAdminState, //false
   ]); //profileData?.role because profileData?.role looks at role ('customer' or 'admin') while profiledata don't change still returns id, name, role(not checking it's inner content) it's the same. gets?
 
   return (
@@ -108,22 +97,6 @@ export default function LoginPage(): React.JSX.Element {
             }
           />
         </div>
-        {/* 
-        <div className="flex items-center mt-5">
-          <input
-            type="checkbox"
-            name="isFakeAdmin"
-            id="isFakeAdmin"
-            value="isFakeAdmin"
-            checked={isFakeAdmin}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setIsFakeAdmin(e.target.checked)
-            }
-            className="w-5 h-5 mr-2 accent-stone-900 text-white "
-          />
-
-          <FormLabel htmlFor="isFakeAdmin">Fake Admin for testing</FormLabel>
-        </div> */}
 
         <Link to="/create-user">
           <p className="montserrat-medium underline underline-offset-4 mt-4">
@@ -146,3 +119,7 @@ export default function LoginPage(): React.JSX.Element {
 //credential for testing customer
 // john@mail.com
 // changeme
+
+//admin
+// admin@mail.com 
+// admin123

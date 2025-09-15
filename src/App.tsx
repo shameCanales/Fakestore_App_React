@@ -18,6 +18,7 @@ import CartPage from "./pages/customer/CartPage.jsx";
 import LoginPage from "./pages/customer/LoginPage.jsx";
 import HomePage from "./pages/customer/HomePage.jsx";
 import CreateUserPage from "./pages/customer/CreateUserPage.jsx";
+import ProfilePage from "./pages/customer/ProfilePage.js";
 
 //common
 import NotFoundPage from "./pages/NotFoundPage.jsx";
@@ -32,7 +33,7 @@ import UsersList from "./pages/admin/UsersListPage.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/", 
+    path: "/",
     element: <CustomerRootLayout />,
     children: [
       {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
           {
             path: "cart",
             element: <CartPage />,
+          },
+          {
+            path: "profile",
+            element: <ProfilePage />,
           },
         ],
       },

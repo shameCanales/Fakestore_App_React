@@ -1,7 +1,7 @@
 import CategoryItem from "../../components/CategoryItem.js";
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import { fetchCategories, fetchCategoryNameById } from "../../util/http.js";
-import Heading from "../../UI/Heading.jsx";
+import Heading from "../../UI/Heading.js";
 import { Outlet } from "react-router";
 import { useParams } from "react-router";
 import type { Category } from "../../util/http.js";

@@ -1,7 +1,7 @@
-type HeadingProps = {
-  text: string,
-};
+interface HeadingProps {
+  text: string;
+}
 
 export default function Heading({ text }: HeadingProps) {
-  return ;
+  return <h1>{text}</h1>;
 }

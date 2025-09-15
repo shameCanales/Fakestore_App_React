@@ -71,16 +71,21 @@ export default function MainNavigation() {
 
         {/* Auth Section */}
         <div className="flex gap-4">
-          <NavLink to="/cart" className="hidden lg:block">
-            <img src={cartIcon} alt="Cart" className="w-6" />
-          </NavLink>
           {isLoggedIn ? (
-            <button
-              className="hidden md:block bg-red-600 hover:bg-red-500 transition-colors text-white py-2 px-4 rounded-xl font-medium"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
+            <div>
+              <NavLink to="/cart" className="hidden lg:block">
+                <img src={cartIcon} alt="Cart" className="w-6" />
+              </NavLink>
+              <button
+                className="hidden md:block bg-red-600 hover:bg-red-500 transition-colors text-white py-2 px-4 rounded-xl font-medium"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+              <NavLink to="/profile">
+                <h1>Profile</h1>
+              </NavLink>
+            </div>
           ) : (
             <div className="hidden md:flex gap-3">
               <NavButton>
