@@ -11,9 +11,15 @@ interface mobileNav {
   isOpen: boolean;
 }
 
+interface EditProfileModal {
+  isEditing: boolean;
+  idToEdit: number;
+}
+
 export interface UiState {
   toast: ToastState;
   mobileNav: mobileNav;
+  editProfileModal: EditProfileModal;
 }
 
 const initialState: UiState = {
@@ -25,6 +31,10 @@ const initialState: UiState = {
   },
   mobileNav: {
     isOpen: false,
+  },
+  editProfileModal: {
+    isEditing: false,
+    idToEdit: 0,
   },
 };
 
@@ -56,6 +66,12 @@ const uiSlice = createSlice({
     },
     closeMobileNav(state) {
       state.mobileNav.isOpen = false;
+    },
+    OpenEditProfileModal(state) {
+      state.editProfileModal.isEditing = true;
+    },
+    closeEditProfileModal(state) {
+      state.editProfileModal.isEditing = false;
     },
   },
 });

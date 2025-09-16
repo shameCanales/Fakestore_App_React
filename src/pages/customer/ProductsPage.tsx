@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import ProductCard from "../../components/ProductCard.js";
 import PaginationBtn from "../../UI/PaginationBtn.jsx";
 import { useGetAllProducts } from "../../hooks/useGetAllProducts.js";
-import type { Product } from "../../util/http.js";
+import type { Product } from "../../types/Products.js";
 
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -40,10 +40,16 @@ export default function ProductsPage() {
     );
   }
 
-  let content = <p className="text-center text-gray-500 mt-10">Refresh to see products</p>;
+  let content = (
+    <p className="text-center text-gray-500 mt-10">Refresh to see products</p>
+  );
 
   if (isPending) {
-    content = <p className="text-center text-gray-500 mt-10">Getting available products for you...</p>;
+    content = (
+      <p className="text-center text-gray-500 mt-10">
+        Getting available products for you...
+      </p>
+    );
   }
 
   if (isError) {
@@ -82,15 +88,15 @@ export default function ProductsPage() {
 
                   {/* Content */}
                   <div className="p-3">
-                    <h1 className="text-base sm:text-lg font-bold text-gray-900">
-                      ₱{product.price}
-                    </h1>
-                    <p className="line-clamp-2 text-xs sm:text-sm font-medium text-gray-800 mt-1">
+                    <p className="line-clamp-1 text-xs sm:text-sm font-medium text-gray-800 mt-1">
                       {product.title}
                     </p>
-                    <p className="line-clamp-2 text-xs text-gray-600 mt-1">
+                    <h1 className="text-sm sm:text-2xl mt-4 font-bold text-gray-900">
+                      ₱{product.price}.00
+                    </h1>
+                    {/* <p className="line-clamp-2 text-xs text-gray-600 mt-1">
                       {product.description}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </Link>
@@ -120,7 +126,9 @@ export default function ProductsPage() {
     <div className="min-h-screen bg-gray-50 px-4 sm:px-8 py-6">
       {/* Header + Search */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Products</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+          Products
+        </h1>
 
         <input
           type="text"

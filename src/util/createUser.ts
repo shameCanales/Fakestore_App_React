@@ -1,20 +1,8 @@
 import { api } from "./http.js";
+import type { ProfileData, CreateUserData } from "../types/ProfileData.ts";
 
-interface createUserInput {
-  name: string;
-  email: string;
-  password: string;
-  avatar: string;
-}
-
-interface UserResponse {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-  avatar: string;
-  role: string;
-}
+type createUserInput = CreateUserData;
+type UserResponse = ProfileData;
 
 export const createUser = async ({
   name,

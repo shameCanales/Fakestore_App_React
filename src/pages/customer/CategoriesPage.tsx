@@ -4,7 +4,7 @@ import { fetchCategories, fetchCategoryNameById } from "../../util/http.js";
 import Heading from "../../UI/Heading.js";
 import { Outlet } from "react-router";
 import { useParams } from "react-router";
-import type { Category } from "../../util/http.js";
+import type { Category } from "../../types/Category.js";
 import { useGetAllCategories } from "../../hooks/useGetAllCategories.js";
 
 export default function CategoriesPage() {

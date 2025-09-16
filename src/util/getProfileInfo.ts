@@ -1,4 +1,5 @@
 import { api } from "./http.js";
+// import type { ProfileData } from "../types/ProfileData.js";
 
 interface ProfileData {
   id: number;

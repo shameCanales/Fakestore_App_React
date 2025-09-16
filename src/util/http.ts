@@ -1,5 +1,7 @@
 import { QueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import type { Product } from "../types/Products.js";
+import type { Category } from "../types/Category.js";
 
 export const queryClient = new QueryClient();
 
@@ -20,22 +22,22 @@ interface FetchParams {
   signal?: AbortSignal | undefined;
 }
 
-export interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: { id: number; name: string; image: string; slug: string };
-  images: string[];
-  slug: string;
-}
+// export interface Product {
+//   id: number;
+//   title: string;
+//   price: number;
+//   description: string;
+//   category: { id: number; name: string; image: string; slug: string };
+//   images: string[];
+//   slug: string;
+// }
 
-export interface Category {
-  id: number;
-  name: string;
-  slug: string;
-  image: string;
-}
+// export interface Category {
+//   id: number;
+//   name: string;
+//   slug: string;
+//   image: string;
+// }
 
 export async function fetchProducts({
   page = 1,

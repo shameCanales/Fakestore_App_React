@@ -6,22 +6,10 @@ import ImageCarousel from "./ImageCarousel.js";
 import Button from "../UI/Button.jsx";
 import { showTimedToast } from "../store/ui-actions.js";
 import type { RootState, AppDispatch } from "../store/store.js";
+import type { Product } from "../types/Products.js";
 
 interface ProductsDetailsContentProps {
-  data: {
-    id: number;
-    title: string;
-    slug?: string;
-    price: number;
-    description: string;
-    category: {
-      id: number;
-      name: string;
-      image: string;
-      slug: string;
-    };
-    images: string[];
-  };
+  data: Product;
 }
 
 export default function ProductDetailsContent({

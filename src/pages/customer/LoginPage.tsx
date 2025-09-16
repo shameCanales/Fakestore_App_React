@@ -52,7 +52,8 @@ export default function LoginPage(): React.JSX.Element {
   // waiting for token and checking if the user is admin or customer to navigate to respective routes
   useEffect(() => {
     if (!profileData || gettingProfilePending || !token) return; //without !token, it will produce an infinite loop
-    dispatch(authActions.setProfileData(profileData));
+    // dispatch(authActions.setProfileData(profileData));
+    console.log(profileData);
     if (profileData.role === "customer") {
       navigate("/products", { replace: true });
     } else if (profileData.role === "admin") {
@@ -121,5 +122,5 @@ export default function LoginPage(): React.JSX.Element {
 // changeme
 
 //admin
-// admin@mail.com 
+// admin@mail.com
 // admin123

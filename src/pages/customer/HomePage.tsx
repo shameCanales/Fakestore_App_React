@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-import type { RootState } from "../../store/store.js";
 import heroImg from "../../assets/heroimage.svg";
 import { NavLink } from "react-router";
 import { useState } from "react";
@@ -39,8 +37,8 @@ const carouselItems: CarouselItems[] = [
 ];
 
 export default function HomePage() {
-  const isAdmin =
-    useSelector((state: RootState) => state.auth.profileData.role) === "admin";
+  // const isAdmin =
+  //   useSelector((state: RootState) => state.auth.profileData.role) === "admin";
   const [activeCarouselIndex, setActiveCarouselIndex] = useState<number>(0);
 
   const handleSelectActivecarousel = (index: number) => {

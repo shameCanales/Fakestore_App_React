@@ -8,12 +8,6 @@ type BackgroundMap = {
   [K in ToastType]: string;
 };
 
-// interface ToastState {
-//   title: string;
-//   message: string;
-//   type: ToastType;
-// }
-
 const backgroundMapper: BackgroundMap = {
   error: "bg-red-700",
   info: "bg-blue-700",

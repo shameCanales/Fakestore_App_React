@@ -5,6 +5,7 @@ import CartItem from "./CartItem.js";
 import { cartActions } from "../store/cart-slice.js";
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { RootState, AppDispatch } from "../store/store.js";
+import type { Product } from "../types/Products.js";
 
 //types for cart items in redux
 interface CartItemType {
@@ -13,18 +14,10 @@ interface CartItemType {
 }
 
 //Types for product fetched from API
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  images: string[];
-}
+type CartProduct = Pick<Product, "id" | "title" | "price" | "images">;
 
 //Types for complete cart item with total
-interface CompleteCartItem {
-  id: number;
-  title: string;
-  price: number;
+interface CompleteCartItem extends Pick<Product, "id" | "title" | "price"> {
   image?: string;
   quantity: number;
   total: number;
@@ -41,7 +34,7 @@ export default function Cart() {
     (state: RootState) => state.cart.items
   ) as CartItemType[]; //[{id: 1, quantity: 4}, ...]
 
-  const productQueries: UseQueryResult<Product, unknown>[] = useQueries({
+  const productQueries: UseQueryResult<CartProduct, unknown>[] = useQueries({
     queries: cartItems.map((item) => ({
       queryKey: ["product", item.id],
       queryFn: ({ signal }: { signal?: AbortSignal }) =>
@@ -104,7 +97,7 @@ export default function Cart() {
       dispatch(cartActions.incrementItemQuantity({ id }));
     }
 
-    function handleSubtract({ id }: { id : number}) {
+    function handleSubtract({ id }: { id: number }) {
       const itemToDecrement = cartItems.find((item) => item.id === id);
 
       if (itemToDecrement?.quantity === 1) {
@@ -132,12 +125,9 @@ export default function Cart() {
 
         <div className="">
           <p className="m">
-            Grand Total:{" "}
-            <span className="">{grandTotal}.00 Pesos</span>
+            Grand Total: <span className="">{grandTotal}.00 Pesos</span>
           </p>
-          <button className="">
-            Check Out!
-          </button>
+          <button className="">Check Out!</button>
         </div>
       </ul>
     );

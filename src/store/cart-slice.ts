@@ -6,14 +6,13 @@ interface CartItem {
   id: number;
   quantity: number;
 }
-
 // Define the shape of the cart state
 export interface CartState {
   items: CartItem[];
 }
-
 // Load cart items from localstorage safely
 let storedCartItems: CartItem[] = [];
+
 try {
   const raw = localStorage.getItem("cartItems");
   storedCartItems = raw ? JSON.parse(raw) : [];
