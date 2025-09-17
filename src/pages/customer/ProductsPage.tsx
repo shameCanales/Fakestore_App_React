@@ -4,6 +4,8 @@ import ProductCard from "../../components/ProductCard.js";
 import PaginationBtn from "../../UI/PaginationBtn.jsx";
 import { useGetAllProducts } from "../../hooks/useGetAllProducts.js";
 import type { Product } from "../../types/Products.js";
+import type { ChangeEvent } from "react";
+import searchIcon from "../../assets/search.png";
 
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -12,7 +14,7 @@ export default function ProductsPage() {
 
   const { data, isPending, isError, error } = useGetAllProducts(page, limit);
 
-  function handleSearchInput(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleSearchInput(e: ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.target.value);
   }
 
@@ -69,38 +71,12 @@ export default function ProductsPage() {
       <div>
         <ul
           className="
-            grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5
+            grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5
             gap-4 sm:gap-6 mt-6
           "
         >
-          {filteredProducts.map((product) => (
-            <li key={product.id}>
-              <Link to={`/products/${product.id}`}>
-                <div className="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-200">
-                  {/* Image */}
-                  <div className="aspect-square w-full overflow-hidden">
-                    <img
-                      className="w-full h-full object-cover"
-                      src={product.images[0]}
-                      alt={product.title}
-                    />
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-3">
-                    <p className="line-clamp-1 text-xs sm:text-sm font-medium text-gray-800 mt-1">
-                      {product.title}
-                    </p>
-                    <h1 className="text-sm sm:text-2xl mt-4 font-bold text-gray-900">
-                      ₱{product.price}.00
-                    </h1>
-                    {/* <p className="line-clamp-2 text-xs text-gray-600 mt-1">
-                      {product.description}
-                    </p> */}
-                  </div>
-                </div>
-              </Link>
-            </li>
+          {filteredProducts.map((product, index) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </ul>
 
@@ -124,25 +100,32 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 sm:px-8 py-6">
-      {/* Header + Search */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Search ..."
+            value={searchQuery}
+            onChange={handleSearchInput}
+            className="
+            w-full sm:w-80
+            shadow-sm border border-gray-300  rounded-lg
+          placeholder-gray-500 text-shadow-slate-700
+            focus:outline-none focus:ring-2 focus:ring-violet-600
+            pl-12 py-4 px-4 text-sm
+          "
+          />
+
+          <img
+            className="absolute top-3.5 left-3 rounded-lg bg-violet-600 p-2 w-7"
+            src={searchIcon}
+            alt="Search Icon"
+          />
+        </div>
+
         <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
           Products
         </h1>
-
-        <input
-          type="text"
-          placeholder="Search by Title, Price, Range (10-50), or Category"
-          value={searchQuery}
-          onChange={handleSearchInput}
-          className="
-            w-full sm:w-80
-            shadow-sm border border-gray-300 rounded-lg
-            text-gray-900 placeholder-gray-500
-            focus:outline-none focus:ring-2 focus:ring-green-600
-            py-2 px-4 text-sm
-          "
-        />
       </div>
 
       {/* Product grid / messages */}

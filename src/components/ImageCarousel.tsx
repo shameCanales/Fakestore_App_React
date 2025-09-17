@@ -12,21 +12,17 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
   };
 
   return (
-    <div className="relative">
+    <div className="">
       <div>
-        <img src={images[selectedImage]} alt="" />
+        <img className="rounded-2xl" src={images[selectedImage]} alt="" />
       </div>
-      <div className="flex gap-2 mx-4 absolute bottom-4">
+      <div className="flex justify-center gap-2 mx-4 bottom-4 mt-4">
         {images.map((img, index) => {
-          let imageStyle = "w-[100px]  ";
-
-          if (selectedImage === index) {
-            imageStyle += " border-3 border-stone-50";
-          }
-
           return (
             <img
-              className={imageStyle}
+              className={`w-[60px] rounded-xl ${
+                selectedImage === index ? "brightness-50" : ""
+              }`}
               key={index}
               src={img}
               onClick={() => handleSelectImage(index)}

@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductById } from "../../util/http.js";
-import arrow from "../../assets/arrow.png";
+
 import ProductDetailsContent from "../../components/ProductDetailsContent.js";
 
 export default function ProductDetailPage() {
@@ -32,19 +32,5 @@ export default function ProductDetailPage() {
     content = <ProductDetailsContent data={data} />;
   }
 
-  return (
-    <div>
-      <div className="flex justify-between mt-15">
-        <h1 className="poppins-bold text-4xl ">Product Details</h1>
-
-        <Link to="../">
-          <button className="flex border-2 px-6 py-2 rounded-3xl">
-            <img className="w-[20px] mr-3" src={arrow} />
-            <p className="montserrat-medium">Go Back</p>
-          </button>
-        </Link>
-      </div>
-      {content}
-    </div>
-  );
+  return <div>{content}</div>;
 }

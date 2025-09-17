@@ -7,6 +7,8 @@ import Button from "../UI/Button.jsx";
 import { showTimedToast } from "../store/ui-actions.js";
 import type { RootState, AppDispatch } from "../store/store.js";
 import type { Product } from "../types/Products.js";
+import { Link } from "react-router";
+import arrow from "../assets/back.png";
 
 interface ProductsDetailsContentProps {
   data: Product;
@@ -18,6 +20,7 @@ export default function ProductDetailsContent({
   const dispatch = useDispatch<AppDispatch>();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const navigate = useNavigate();
+  const [isSeeMore, setIsSeeMore] = useState<boolean>(false);
 
   const [quantity, setQuantity] = useState<number>(1);
   const { id, title, price, description, category, images } = data;
@@ -57,16 +60,32 @@ export default function ProductDetailsContent({
   }
 
   return (
-    <div className="mt-20 grid lg:grid-cols-2  gap-15">
-      <div className="order-2">
-        <p className="montserrat-bold text-2xl">{title}</p>
-        <p className="montserrat mt-5 text-lg">{description}</p>
-        <p className="poppins-medium mt-6">
-          Category:{" "}
-          <span className="px-4 py-2 bg-stone-900 text-stone-50 rounded-4xl ml-2">
-            {category.name}
-          </span>
+    <div className="mt-20 gap-15 p-3 border-2 border-slate-300 rounded-2xl relative">
+      <ImageCarousel images={images} />
+
+      <div className=" mt-13">
+        <p className="montserrat-bold text-2xl line-clamp-2">{title}</p>
+        <p className=" inline-block montserrat-regular text-xs  mt-3 px-4 py-2 bg-stone-900 text-stone-50 rounded-4xl">
+          {category.name}
         </p>
+
+        <div>
+          <p
+            className={`montserrat mt-7 leading-normal line-clamp-3 ${
+              isSeeMore ? "line-clamp-none" : ""
+            }`}
+          >
+            {description}
+          </p>
+          <button
+            className="montserrat-bold"
+            onClick={() => setIsSeeMore((prev) => !prev)}
+          >
+            {isSeeMore ? "See Less..." : "See More..."}
+          </button>
+        </div>
+
+        
         <p className="poppins-bold text-5xl mt-10">₱{price}</p>
 
         <div>
@@ -87,7 +106,12 @@ export default function ProductDetailsContent({
         </div>
       </div>
 
-      <ImageCarousel images={images} />
+      <Link to="../" className="absolute top-[-18px] right-2">
+        <button className="flex px-3 py-2 rounded-3xl bg-slate-900 text-slate-50">
+          <img className="w-[15px] mr-2" src={arrow} />
+          <p className="montserrat-medium text-xs">Go Back</p>
+        </button>
+      </Link>
     </div>
   );
 }

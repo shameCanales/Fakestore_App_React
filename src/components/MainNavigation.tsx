@@ -41,7 +41,7 @@ export default function MainNavigation() {
   };
 
   return (
-    <header className="bg-slate-50 text-stone- shadow-md sticky top-0 left-0 w-full z-0">
+    <header className="bg-slate-50 text-stone- shadow-md sticky top-0 left-0 w-full z-1">
       <div className="flex justify-between items-center px-4 md:px-10 py-3">
         <div className="flex items-center gap-3">
           <button
