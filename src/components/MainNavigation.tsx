@@ -46,7 +46,7 @@ export default function MainNavigation() {
         <div className="flex items-center gap-3">
           <button
             onClick={handleOpenMobileNav}
-            className="border-2 p-1 rounded-md border-s-slate-200"
+            className="lg:hidden border-2 p-1 rounded-md border-s-slate-200"
           >
             <img className="w-6" src={HamIcon} alt="Open Menu" />
           </button>
