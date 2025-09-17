@@ -14,12 +14,6 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 | FakeStore API               | Mock backend for products, users, etc. |
 | TypeScript                  | Strict Type checking                   |
 
-## To be added Features
-
-- protected profile router
-- Fully Responsive layout (mobile-first)
-- Dark and Light Mode (theme)
-
 ## Implemented Features
 
 1. Product Listing and detail Pages
@@ -41,6 +35,7 @@ A modern, frontend-only e-commerce web aplication built with React, Tailwind CSS
 17. show error Toast when clicking addtocart but not logged in with ui-actions redux thunk
 18. show success toast when added to cart successfully
 19. Admin Product list
-20. Added Type check
+20. Added TypeSafety with typescript
+21. Edit Profile Info
 
 ## Folder Structure (Modular)
