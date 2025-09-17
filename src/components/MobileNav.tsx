@@ -1,11 +1,12 @@
 import closeIcon from "../assets/cancel.png";
 import { NavLink } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../store/ui-Slice.js";
-import type { AppDispatch } from "../store/store.js";
+import type { AppDispatch, RootState } from "../store/store.js";
 
 export default function MobileNav() {
   const dispatch = useDispatch<AppDispatch>();
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   const handleCloseMobileNav = () => {
     dispatch(uiActions.closeMobileNav());
@@ -34,7 +35,7 @@ export default function MobileNav() {
               <p>Categories</p>
             </NavLink>
           </li>
-          <li>
+          <li className={`${isLoggedIn ? "" : "hidden"}`}>
             <NavLink to="cart">
               <p>Cart</p>
             </NavLink>

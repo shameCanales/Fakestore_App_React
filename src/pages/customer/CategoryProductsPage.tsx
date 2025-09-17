@@ -32,13 +32,13 @@ export default function CategoryProductsPage() {
 
   if (data) {
     content = (
-      <>
-        <div className="grid gap-4">
-          {data.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </>
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mt-5">
+        {data.map((product) => (
+          <li key={product.id}>
+            <ProductCard product={product} />
+          </li>
+        ))}
+      </ul>
     );
   }
 

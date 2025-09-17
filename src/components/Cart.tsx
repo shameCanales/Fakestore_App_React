@@ -5,7 +5,6 @@ import CartItem from "./CartItem.js";
 import { cartActions } from "../store/cart-slice.js";
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { RootState, AppDispatch } from "../store/store.js";
-import type { Product } from "../types/Products.js";
 
 //types for cart items in redux
 interface CartItemType {
@@ -14,10 +13,18 @@ interface CartItemType {
 }
 
 //Types for product fetched from API
-type CartProduct = Pick<Product, "id" | "title" | "price" | "images">;
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  images: string[];
+}
 
 //Types for complete cart item with total
-interface CompleteCartItem extends Pick<Product, "id" | "title" | "price"> {
+interface CompleteCartItem {
+  id: number;
+  title: string;
+  price: number;
   image?: string;
   quantity: number;
   total: number;
@@ -34,7 +41,7 @@ export default function Cart() {
     (state: RootState) => state.cart.items
   ) as CartItemType[]; //[{id: 1, quantity: 4}, ...]
 
-  const productQueries: UseQueryResult<CartProduct, unknown>[] = useQueries({
+  const productQueries: UseQueryResult<Product, unknown>[] = useQueries({
     queries: cartItems.map((item) => ({
       queryKey: ["product", item.id],
       queryFn: ({ signal }: { signal?: AbortSignal }) =>
@@ -97,7 +104,7 @@ export default function Cart() {
       dispatch(cartActions.incrementItemQuantity({ id }));
     }
 
-    function handleSubtract({ id }: { id: number }) {
+    function handleSubtract({ id }: { id : number}) {
       const itemToDecrement = cartItems.find((item) => item.id === id);
 
       if (itemToDecrement?.quantity === 1) {
@@ -123,11 +130,14 @@ export default function Cart() {
           />
         ))}
 
-        <div className="">
-          <p className="m">
-            Grand Total: <span className="">{grandTotal}.00 Pesos</span>
+        <div className="flex items-center mt-10 justify-end">
+          <p className="montserrat-medium text-xl">
+            Grand Total:{" "}
+            <span className="montserrat-bold">{grandTotal}.00 Pesos</span>
           </p>
-          <button className="">Check Out!</button>
+          <button className="bg-stone-900 text-stone-50 px-4 py-2 poppins-bold ml-5 rounded-3xl ">
+            Check Out!
+          </button>
         </div>
       </ul>
     );

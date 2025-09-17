@@ -65,7 +65,7 @@ export default function ProductCard({
             {product.category.name}
           </button>
 
-          <div className="flex justify-between items-end mt-4">
+          <div className="flex sm:block justify-between items-end mt-4">
             <div>
               <p className="text-slate-600">Price:</p>
               <p className="text-2xl poppins-bold">
