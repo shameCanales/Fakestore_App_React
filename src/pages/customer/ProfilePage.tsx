@@ -4,8 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import EditProfileModal from "../../components/EditProfileModal.js";
 import { uiActions } from "../../store/ui-Slice.js";
 import { useGetProfileInfo } from "../../hooks/useGetProfileInfo.js";
+import { authActions } from "../../store/auth-slice.js";
+import { useNavigate } from "react-router";
 
 export default function ProfilePage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const token = useSelector((state: RootState) => state.auth.token);
 
@@ -18,6 +21,11 @@ export default function ProfilePage() {
 
   const handleEditProfileInfo = () => {
     dispatch(uiActions.OpenEditProfileModal());
+  };
+
+  const handleLogout = (): void => {
+    dispatch(authActions.logout());
+    navigate("/");
   };
 
   return (
@@ -36,6 +44,13 @@ export default function ProfilePage() {
         onClick={() => handleEditProfileInfo()}
       >
         Edit Info
+      </button>
+
+      <button
+        className="hidden md:block bg-red-600 hover:bg-red-500 transition-colors text-white py-2 px-4 rounded-xl font-medium"
+        onClick={handleLogout}
+      >
+        Logout
       </button>
 
       {isEditing && <EditProfileModal />}

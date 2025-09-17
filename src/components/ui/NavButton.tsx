@@ -1,5 +1,17 @@
 import React from "react";
+import { NavLink } from "react-router";
 
-export default function NavButton({ children }: { children: React.ReactNode }) {
-  return <button className="border-1 border-stone-600 montserrat-regular text-sm text-stone-50 px-3 py-0.5 rounded-md">{children}</button>;
+interface NavButtonProps {
+  route: string;
+  icon: string;
+  label: string;
+}
+
+export default function NavButton({ route, icon, label }: NavButtonProps) {
+  return (
+    <NavLink className="flex items-center gap-1 p-1 border-1 border-slate-500 rounded-lg" to={route}>
+      <img className="w-3" src={icon} alt={label} />
+      <p className="text-sm poppins-medium">{label}</p>
+    </NavLink>
+  );
 }

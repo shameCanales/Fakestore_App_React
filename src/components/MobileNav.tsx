@@ -12,7 +12,7 @@ export default function MobileNav() {
   };
 
   return (
-    <div className="absolute z-1 w-full h-full bg-stone-900 p-5 text-stone-100">
+    <div className="fixed z-1 w-full h-full bg-[rgba(0,0,0,0.85)] p-5 text-stone-100">
       <button className="w-10" onClick={() => handleCloseMobileNav()}>
         <img src={closeIcon} alt="Exit icon" />
       </button>
