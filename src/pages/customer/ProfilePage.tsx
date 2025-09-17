@@ -47,7 +47,7 @@ export default function ProfilePage() {
       </button>
 
       <button
-        className="hidden md:block bg-red-600 hover:bg-red-500 transition-colors text-white py-2 px-4 rounded-xl font-medium"
+        className="hidden md:block bg-red-600 hover:bg-red-500 transition-colors text-white py-2 mx-auto mt-5 px-6 rounded-md font-medium"
         onClick={handleLogout}
       >
         Logout
