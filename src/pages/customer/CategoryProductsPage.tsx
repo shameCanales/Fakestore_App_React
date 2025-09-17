@@ -2,7 +2,7 @@ import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { fetchProductsByCategoryId } from "../../util/http.js";
 import ProductCard from "../../components/ProductCard.js";
-import type { Product } from "../../util/http.js";
+import type { Product } from "../../types/Products.js";
 
 interface FetchProductByCatIdParams {
   id: number;
@@ -33,16 +33,9 @@ export default function CategoryProductsPage() {
   if (data) {
     content = (
       <>
-        <div className="grid grid-cols-4">
+        <div className="grid gap-4">
           {data.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              imgSrc={product.images}
-              title={product.title}
-              description={product.description}
-              price={product.price}
-            />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </>

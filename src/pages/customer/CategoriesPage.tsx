@@ -38,7 +38,7 @@ export default function CategoriesPage() {
 
   if (data) {
     content = (
-      <div className="grid grid-cols-8 gap-2 mt-15">
+      <div className="flex flex-wrap gap-2  mt-5">
         {data.map((cat) => (
           <CategoryItem
             key={cat.id}
@@ -62,7 +62,7 @@ export default function CategoriesPage() {
   }
 
   return (
-    <div>
+    <div className="">
       <Heading text="Categories" />
       {content}
       <div>
