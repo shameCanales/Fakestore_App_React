@@ -11,3 +11,4 @@ export type CreateUserData = Pick<
   ProfileData,
   "email" | "password" | "name" | "avatar"
 >;
+

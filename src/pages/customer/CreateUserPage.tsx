@@ -65,6 +65,7 @@ export default function CreateUserPage() {
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setName(e.target.value)
             }
+            htmlId="name"
           />
         </div>
 
@@ -77,6 +78,7 @@ export default function CreateUserPage() {
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setEmail(e.target.value)
             }
+            htmlId="email"
           />
         </div>
 
@@ -89,6 +91,7 @@ export default function CreateUserPage() {
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setPassword(e.target.value)
             }
+            htmlId="password"
           />
         </div>
 

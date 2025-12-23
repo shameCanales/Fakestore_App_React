@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../util/http.js";
-import type { Product } from "../util/http.js";
+import type { Product } from "../types/Products.js";
 
 // If your API returns a paginated response, define the response type
 export interface ProductsResponse {
